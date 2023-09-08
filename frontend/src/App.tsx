@@ -29,6 +29,15 @@ function App() {
                 className="w-screen h-screen bg-center bg-cover bg-no-repeat overflow-hidden"
                 style={{ backgroundImage: `url(/assets/background.jpg)` }}
               >
+                <div className="flex md:hidden justify-center flex-col items-center w-full h-full">
+                  <img
+                    className="w-[50%] max-h-[75%] z-50"
+                    src="/assets/rotate.gif"
+                  ></img>
+                  <div className="w-[80%] gradient-text text-[24px] text-center">
+                    Please Rotate Your Phone For Better Experience
+                  </div>
+                </div>
                 <div className="flex justify-center items-center w-full h-full px-[2%] 2xl:px-[9%]">
                   <div className="flex justify-center items-center relative">
                     <img

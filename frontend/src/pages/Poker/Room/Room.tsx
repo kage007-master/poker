@@ -129,11 +129,11 @@ const Component = () => {
                 {table.type}
               </div>
               <div className="flex items-center gradient-text">
-                <SvgTable className="w-[30%]"></SvgTable>
+                <SvgTable className="w-6 h-6 lg:w-8 lg:h-8"></SvgTable>
                 {table.tableCnts}
               </div>
               <div className="flex items-center gradient-text">
-                <SvgUser className="w-[30%]"></SvgUser>
+                <SvgUser className="w-6 h-6 lg:w-8 lg:h-8"></SvgUser>
                 {table.playerCnt}
               </div>
               {table.type === "Turbo SNG" && table.status === "FINISHED" ? (

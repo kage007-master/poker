@@ -6,4 +6,5 @@ const environment = {
   apiTimeout: 4000,
   dappEnvironment: "devnet",
 };
+
 export default environment;
