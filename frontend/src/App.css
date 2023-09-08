@@ -1,0 +1,113 @@
+/* @font-face {
+  font-family: Montserrat;
+  src: url(./assets/fonts/Montserrat-Regular.ttf);
+} */
+
+::-webkit-scrollbar {
+  cursor: pointer;
+  width: 2px;
+  height: 8px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  cursor: pointer;
+  background: #3b415c;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  cursor: pointer;
+  background: #4b308b;
+  border-radius: 2px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #613ce5;
+}
+
+.m-rounded {
+  @apply border border-border rounded-xl;
+}
+
+.anim {
+  @apply transition-colors duration-300;
+}
+
+.m-overflow {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    top: 60%;
+  }
+  to {
+    opacity: 1;
+    top: 50%;
+  }
+}
+.modal-fade {
+  animation: fadeIn 0.3s;
+}
+
+@keyframes dropdown {
+  from {
+    opacity: 0;
+    scale: 80%;
+  }
+  to {
+    opacity: 1;
+    scale: 100%;
+  }
+}
+.anim-dropdown {
+  animation: dropdown 0.3s;
+}
+
+.modal-content {
+  border-radius: 8px;
+  position: absolute;
+  padding: 20px;
+  top: 50%;
+  left: 50%;
+  right: auto;
+  bottom: auto;
+  margin-right: -50%;
+  transform: translate(-50%, -50%);
+  width: 90%;
+  max-width: 500px;
+  border: none;
+  color: #6d6d8f;
+  outline: none;
+  text-align: center;
+}
+
+.btn {
+  border-radius: 12px !important;
+  background: radial-gradient(
+    271.07% 141.42% at 0% -0%,
+    rgba(80, 88, 128, 0.72) 0%,
+    rgba(102, 122, 160, 0.72) 100%
+  );
+  backdrop-filter: blur(12px);
+  border: none !important;
+  padding-top: 0px;
+  padding-bottom: 0px;
+  padding-left: 20px !important;
+  padding-right: 20px !important;
+}
+
+@media screen and (min-width: 1024px) {
+  .btn {
+    padding-top: 4px;
+    padding-bottom: 4px;
+  }
+}
+
+input.placeholder {
+  text-align: center !important;
+}
