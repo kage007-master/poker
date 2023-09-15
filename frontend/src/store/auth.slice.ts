@@ -1,5 +1,7 @@
-import { PayloadAction, createSlice } from "@reduxjs/toolkit";
+import { PayloadAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
+import env from "../config";
+import { log } from "console";
 
 interface IState {
   token: string;
@@ -9,6 +11,7 @@ interface IState {
     avatar: string;
     balance: Record<TCoin, number>;
   };
+  users: [];
 }
 
 const initialState: IState = {
@@ -34,7 +37,13 @@ const initialState: IState = {
       ebone: 0,
     },
   },
+  users: [],
 };
+
+export const getUsers = createAsyncThunk("getusers", async () => {
+  const res = await axios.get(env.authURL + "/auth/users");
+  return res.data;
+});
 
 export const authSlice = createSlice({
   name: "auth",
@@ -55,6 +64,14 @@ export const authSlice = createSlice({
       state.user.balance[chain] += action.payload.amount;
       state.user.balance[chain] = Number(state.user.balance[chain].toFixed(8));
     },
+  },
+  extraReducers: (builder) => {
+    builder.addCase(getUsers.pending, (state, action) => {});
+    builder.addCase(getUsers.fulfilled, (state, action: any) => {
+      state.users = action.payload;
+      console.log(state.users);
+    });
+    builder.addCase(getUsers.rejected, (state, action) => {});
   },
 });
 

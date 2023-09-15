@@ -10,11 +10,21 @@ const ChatModal = () => {
       message: "Congratulations!",
       me: true,
     },
+    {
+      sender: { avatar: "/assets/avatar.jpg" },
+      message: "Congratulations!",
+      me: true,
+    },
+    {
+      sender: { avatar: "/assets/avatar.jpg" },
+      message: "CongratulatiCongratulatiasdf ons !",
+      me: true,
+    },
   ];
 
   return (
-    <div className="absolute w-[380px] h-max rounded-2xl bottom-[110%] left-0 overflow-hidden">
-      <div className="flex flex-col gap-4 backdrop-blur-lg bg-gradient-to-br from-[#444B6B]/[.8] to-[#5A6B8C]/[.8] w-full h-max py-4 px-4 overflow-y-auto overflow-x-hidden max-h-[250px]">
+    <div className="absolute w-[320px] lg:w-[380px] h-max rounded-2xl bottom-[110%] left-0 overflow-hidden text-[10px] lg:text-[14px]">
+      <div className="flex flex-col gap-2 lg:gap-4 backdrop-blur-lg bg-gradient-to-br from-[#444B6B]/[.8] to-[#5A6B8C]/[.8] w-full h-max py-4 px-4 overflow-y-auto overflow-x-hidden max-h-[200px] lg:max-h-[250px]">
         {messages.map((message, index) => (
           <div
             key={index}
@@ -25,7 +35,7 @@ const ChatModal = () => {
             <img
               className={`relative ${
                 message.me ? "order-1" : "order-0"
-              } z-10 w-[40px] h-[40px] rounded-full drop-shadow-[-2px_-2px_4px_rgba(0,0,0,.3)]`}
+              } z-10 w-[32px] h-[32px] lg:w-[40px] lg:h-[40px] rounded-full drop-shadow-[-2px_-2px_4px_rgba(0,0,0,.3)]`}
               src={message.sender.avatar}
               alt=""
             />
@@ -44,11 +54,16 @@ const ChatModal = () => {
         ))}
       </div>
       <div className="flex gap-2 bg-gradient-to-br from-[#505880] to-[#667AA0] h-full py-4 px-4 place-items-center w-full overflow-x-auto">
-        <img className="cursor-pointer" src="/assets/icons/clock.png" alt="" />
+        {/* <img className="cursor-pointer" src="/assets/icons/clock.png" alt="" />
         <img className="cursor-pointer" src="/assets/icons/smile.png" alt="" />
         <p className="py-2 px-4 bg-[#5A6B8C]/[.2] mix-blend-screen text-[#D4E9FF] font-[500] rounded-full cursor-pointer whitespace-nowrap">
           Well Played!
-        </p>
+        </p> */}
+        <input
+          type="text"
+          className="bg-transparent outline-none w-full border rounded-md p-2 text-white"
+          placeholder="Your messages here..."
+        ></input>
       </div>
     </div>
   );

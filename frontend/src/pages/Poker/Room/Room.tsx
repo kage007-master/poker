@@ -2,15 +2,16 @@ import { useContext, useEffect } from "react";
 import { SocketContext } from "context/socket";
 import { useDispatch, useSelector } from "react-redux";
 import { setRobbyInfo } from "store/poker.slice";
-import { RootState } from "store";
+import { AppDispatch, RootState } from "store";
 import { useNavigate } from "react-router-dom";
 import { ReactComponent as SvgTable } from "../../../assets/svg/Table.svg";
 import { ReactComponent as SvgUser } from "../../../assets/svg/User.svg";
 import { setSignUp, setWalletConnect } from "store/modal.slice";
 import { numberToSTR } from "utils/poker";
+import { getUsers } from "store/auth.slice";
 
 const Component = () => {
-  const dispatch = useDispatch();
+  const dispatch = useDispatch<AppDispatch>();
   const navigate = useNavigate();
   const { pokersocket } = useContext(SocketContext);
 
@@ -24,6 +25,7 @@ const Component = () => {
   };
 
   useEffect(() => {
+    dispatch(getUsers());
     pokersocket.on("lobbyInfo", (data: any) => {
       dispatch(setRobbyInfo(data));
     });
@@ -90,59 +92,108 @@ const Component = () => {
         </div>
         <div className="h-[88%] max-h-[88%] overflow-auto">
           {rooms.map((table: any, id) => (
-            <div
-              className="roomtable flex items-center h-[17%] text-[12px] lg:text-[18px] border-b-2 border-[#6980A3]"
-              key={id}
-            >
-              <div className="flex items-center gradient-text">
-                <img
-                  src="/assets/pic.png"
-                  className="h-[12px] lg:h-[18px] px-[2%]"
-                />
-                {numberToSTR(table.smallBlind) + "/"}
-                <img
-                  src="/assets/pic.png"
-                  className="h-[12px] lg:h-[18px] px-[2%]"
-                />
-                {numberToSTR(table.bigBlind)}
-              </div>
-              <div className="flex items-center gradient-text">
-                <img
-                  src="/assets/pic.png"
-                  className="h-[12px] lg:h-[18px] px-[2%]"
-                />
-                {numberToSTR(table.BuyIn)}
-                {table.type === "Ring Game" && (
-                  <>
-                    /
-                    <img
-                      src="/assets/pic.png"
-                      className="h-[12px] lg:h-[18px] px-[2%]"
-                    />
-                    {numberToSTR(table.maxBuyIn)}
-                  </>
+            <div key={id} className="h-[17%]">
+              <div className="roomtable flex items-center text-[12px] h-full-2 lg:text-[18px] border-b-2 border-[#495577]">
+                <div className="flex items-center gradient-text">
+                  <img
+                    src="/assets/pic.png"
+                    className="h-[12px] lg:h-[18px] px-[2%]"
+                  />
+                  {numberToSTR(table.smallBlind) + "/"}
+                  <img
+                    src="/assets/pic.png"
+                    className="h-[12px] lg:h-[18px] px-[2%]"
+                  />
+                  {numberToSTR(table.bigBlind)}
+                </div>
+                <div className="flex items-center gradient-text">
+                  <img
+                    src="/assets/pic.png"
+                    className="h-[12px] lg:h-[18px] px-[2%]"
+                  />
+                  {numberToSTR(table.BuyIn)}
+                  {table.type === "Ring Game" && (
+                    <>
+                      /
+                      <img
+                        src="/assets/pic.png"
+                        className="h-[12px] lg:h-[18px] px-[2%]"
+                      />
+                      {numberToSTR(table.maxBuyIn)}
+                    </>
+                  )}
+                </div>
+                <div
+                  className={`gradient-text${
+                    table.type === "Ring Game" ? 1 : 2
+                  }`}
+                >
+                  {table.type}
+                </div>
+                <div className="flex items-center gradient-text">
+                  <SvgTable className="w-6 h-6 lg:w-8 lg:h-8"></SvgTable>
+                  {table.tableCnts}
+                </div>
+                <div className="flex items-center gradient-text">
+                  <SvgUser className="w-6 h-6 lg:w-8 lg:h-8"></SvgUser>
+                  {table.playerCnt}
+                </div>
+                {table.type === "Turbo SNG" && table.status === "FINISHED" ? (
+                  <div className="gradient-text">{table.status}</div>
+                ) : (
+                  <button
+                    className="uppercase"
+                    onClick={() => onJoin(table.id)}
+                  >
+                    <img src="/assets/buttons/join.png" alt=""></img>
+                  </button>
                 )}
               </div>
-              <div
-                className={`gradient-text${table.type === "Ring Game" ? 1 : 2}`}
-              >
-                {table.type}
+              <div className="border-y-[1px] border-[#6980A3] w-full"></div>
+            </div>
+          ))}
+        </div>
+      </div>
+      <div className="absolute top-[4%] w-[30%] right-[1.8%] h-[10%] flex">
+        <div className="w-[50%] flex items-center justify-center">
+          <img className="w-[20%]" src="/assets/users.png"></img>
+        </div>
+        <div className="w-[50%] flex items-center justify-center">
+          <img className="w-[20%]" src="/assets/table.png"></img>
+        </div>
+      </div>
+      <div
+        className="absolute top-[14%] w-[30%] right-[1.8%] h-[1.5%] bg-center bg-cover bg-no-repeat flex"
+        style={{ backgroundImage: `url(/assets/bar.png)` }}
+      >
+        <img src="/assets/bar-left.png" className="w-[50%] h-[90%]"></img>
+        <img
+          src="/assets/bar-right.png"
+          className="hidden w-[50%] h-[90%]"
+        ></img>
+      </div>
+      <div className="absolute top-[16%] w-[30%] right-[1.8%] h-[78%] text-[10px] lg:text-[16px]">
+        <div className="usertable opacity-60 flex items-center uppercase h-[10%]">
+          <p className="gradient-text">Player</p>
+          <p className="gradient-text text-center">Avatar</p>
+          <p className="gradient-text text-center">#</p>
+          <p className="gradient-text text-right">EBone</p>
+        </div>
+        <div className="h-[90%] max-h-[90%] overflow-auto gradient-text">
+          {auth.users.map((user: any, index) => (
+            <div key={index} className="h-[15%]">
+              <div className="usertable items-center h-full-2 border-b-[#383F63] border-b-[2px]">
+                <p>{user.name}</p>
+                <div className="flex justify-center w-full">
+                  <img
+                    src={user.avatar}
+                    className="border border-[#D4E9FF] rounded-full w-6 h-6 lg:w-8 lg:h-8"
+                  ></img>
+                </div>
+                <p className="text-center">{index + 1}</p>
+                <p className="text-right">{user.balance["ebone"]}</p>
               </div>
-              <div className="flex items-center gradient-text">
-                <SvgTable className="w-6 h-6 lg:w-8 lg:h-8"></SvgTable>
-                {table.tableCnts}
-              </div>
-              <div className="flex items-center gradient-text">
-                <SvgUser className="w-6 h-6 lg:w-8 lg:h-8"></SvgUser>
-                {table.playerCnt}
-              </div>
-              {table.type === "Turbo SNG" && table.status === "FINISHED" ? (
-                <div className="gradient-text">{table.status}</div>
-              ) : (
-                <button className="uppercase" onClick={() => onJoin(table.id)}>
-                  <img src="/assets/buttons/join.png" alt=""></img>
-                </button>
-              )}
+              <div className="border-y-[1px] border-[#4D5A7D] w-full"></div>
             </div>
           ))}
         </div>

@@ -17,6 +17,12 @@ html {
   grid-template-columns: 17% 17% 21% 14% 14% 11%;
 }
 
+.usertable {
+  display: grid;
+  grid-gap: 1%;
+  grid-template-columns: 25% 25% 22% 25%;
+}
+
 .gradient-text {
   text-shadow: 2px 2px 3px rgba(64, 71, 105, 0.24);
   background: radial-gradient(100% 100% at 0% 0%, #fff 0%, #d4e9ff 100%);

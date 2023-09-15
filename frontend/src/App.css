@@ -111,3 +111,7 @@
 input.placeholder {
   text-align: center !important;
 }
+
+.h-full-2 {
+  height: calc(100% - 2px);
+}

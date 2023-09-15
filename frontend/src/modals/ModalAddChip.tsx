@@ -9,7 +9,7 @@ import { SocketContext } from "context/socket";
 
 const positions = [
   "top-[55%]",
-  "left-[8.5%] top-[55%]",
+  "left-[8.5%] top-[60%]",
   "left-[15%] top-[25%]",
   "top-[20%]",
   "left-[64.5%] top-[25%]",
@@ -59,7 +59,7 @@ const ModalAddChip = () => {
                 className="h-[18px] lg:h-[24px] px-[2%]"
               />
             </div>
-            <div className="py-3">
+            <div className="py-2">
               <input
                 className={"custom-range"}
                 type="range"
