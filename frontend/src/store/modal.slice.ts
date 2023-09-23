@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { act } from "react-dom/test-utils";
 
 interface ModalState {
   signUp: boolean;
@@ -10,6 +11,7 @@ interface ModalState {
   chat: boolean;
   screenshot: boolean;
   addchip: number;
+  prize: boolean;
   //poker
 }
 
@@ -23,6 +25,7 @@ const initialState: ModalState = {
   chat: false,
   screenshot: false,
   addchip: -1,
+  prize: false,
 };
 
 export const slice = createSlice({
@@ -56,6 +59,9 @@ export const slice = createSlice({
     setAddChip: (state, action) => {
       state.addchip = action.payload;
     },
+    setPrize: (state, action) => {
+      state.prize = action.payload;
+    },
   },
 });
 
@@ -69,6 +75,7 @@ export const {
   setScreenshot,
   setChat,
   setAddChip,
+  setPrize,
 } = slice.actions;
 
 export default slice.reducer;

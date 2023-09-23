@@ -69,7 +69,6 @@ export const authSlice = createSlice({
     builder.addCase(getUsers.pending, (state, action) => {});
     builder.addCase(getUsers.fulfilled, (state, action: any) => {
       state.users = action.payload;
-      console.log(state.users);
     });
     builder.addCase(getUsers.rejected, (state, action) => {});
   },

@@ -15,6 +15,7 @@ import GradientSVG from "./GradientSVG";
 import Players from "./Players";
 import { numbersToCards } from "utils/poker";
 import { ToastrContext } from "providers/ToastrProvider";
+import { setPrize } from "store/modal.slice";
 
 const Component = () => {
   const dispatch = useDispatch();
@@ -31,8 +32,7 @@ const Component = () => {
       dispatch(setTableInfo({ data, address }));
     });
     pokersocket.on("finished", (data: any) => {
-      notify.info(data.prize);
-      navigate("/");
+      setPrize(true);
     });
     pokersocket.on("error", (msg: string) => {
       notify.error(msg);
@@ -50,7 +50,7 @@ const Component = () => {
     <>
       <img
         className="absolute w-full select-none drop-shadow-[60px_50px_60px_rgba(0,0,0,.4)]"
-        src="/assets/table/table.png"
+        src="/assets/table/table.svg"
         alt="table"
         draggable={false}
       />

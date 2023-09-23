@@ -1,9 +1,10 @@
-import { useState } from "react";
+import { ToastrContext } from "providers/ToastrProvider";
+import { useContext, useEffect, useRef, useState } from "react";
 
 const Settings = () => {
   const [switcher, setSwitcher] = useState(true);
   return (
-    <div className="absolute w-[350%] min-w-[150px] rounded-xl top-[48%] left-0 overflow-hidden">
+    <div className="absolute w-[350%] min-w-[150px] rounded-xl top-[53%] left-0 overflow-hidden">
       <div className="backdrop-blur-lg bg-gradient-to-br from-[#444B6B]/[.5] to-[#5A6B8C]/[.5] w-full p-3 lg:p-4">
         <p className="text-[14px] lg:text-[18px] xl:text-[24px] gradient-text">
           Settings
@@ -97,7 +98,7 @@ const HighHandModal = () => {
         <p className="font-[600] text-[12px] lg:text-[16px] text-[#D5E9FF]">
           START AT:
         </p>
-        <p className="font-[400] text-[20px] lg:text-[30px] text-[#7C95BF] text-shadow">
+        <p className="font-[400] text-[20px] lg:text-[24px] text-[#7C95BF] text-shadow">
           01:00:00
         </p>
       </div>
@@ -106,19 +107,60 @@ const HighHandModal = () => {
 };
 
 const TopLeftControllers = () => {
+  const dropdownRef = useRef<HTMLDivElement>(null);
+  const highhandRef = useRef<HTMLDivElement>(null);
   const [hhOpen, setHhOpen] = useState(false);
   const [mOpen, setMOpen] = useState(false);
+  const notify = useContext(ToastrContext);
 
   const handleMenuClick = () => {
     setMOpen(!mOpen);
   };
 
   const handleHomeClick = () => {
-    alert("Home");
+    notify.info("Comming Soon");
   };
 
   const handleHhClick = () => {
     setHhOpen(!hhOpen);
+  };
+
+  useEffect(() => {
+    setTimeout(() => {
+      if (mOpen) document.addEventListener("click", handleClickOutside);
+      else document.removeEventListener("click", handleClickOutside);
+    }, 100);
+    return () => {
+      document.removeEventListener("click", handleClickOutside);
+    };
+  }, [mOpen]);
+
+  const handleClickOutside = (event: MouseEvent) => {
+    if (
+      dropdownRef.current &&
+      !dropdownRef.current.contains(event.target as Node)
+    ) {
+      setMOpen(false);
+    }
+  };
+
+  useEffect(() => {
+    setTimeout(() => {
+      if (hhOpen) document.addEventListener("click", outHighHand);
+      else document.removeEventListener("click", outHighHand);
+    }, 100);
+    return () => {
+      document.removeEventListener("click", outHighHand);
+    };
+  }, [hhOpen]);
+
+  const outHighHand = (event: MouseEvent) => {
+    if (
+      highhandRef.current &&
+      !highhandRef.current.contains(event.target as Node)
+    ) {
+      setHhOpen(false);
+    }
   };
 
   return (
@@ -162,8 +204,16 @@ const TopLeftControllers = () => {
             High Hand
           </p>
         )}
-        {mOpen && <Settings />}
-        {hhOpen && <HighHandModal />}
+        {mOpen && (
+          <div ref={dropdownRef}>
+            <Settings />
+          </div>
+        )}
+        {hhOpen && (
+          <div ref={highhandRef}>
+            <HighHandModal />
+          </div>
+        )}
       </div>
     </div>
   );

@@ -71,36 +71,33 @@ html {
   background-color: #383f63;
   border-radius: 10px 10px 5px 10px;
   border: none;
+  /* position: relative; */
   outline: none;
 }
 
 .custom-range::-webkit-slider-thumb {
   -webkit-appearance: none;
-  width: 26px;
-  height: 32px;
-  margin-top: -14px;
-  background: url("./assets/buttons/range/thumb.png") no-repeat center center /
-    contain;
+  width: 8%;
+  min-width: 12px;
+  height: 400%;
+  position: relative;
+  top: -150%;
+  background: url("./assets/buttons/range/thumb.png");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  /* overflow: hidden; */
   filter: drop-shadow(2px 2px 4px rgba(0, 0, 0, 0.25));
   cursor: pointer;
   border: none;
   outline: none;
 }
 
-@media screen and (max-width: 1024px) {
-  .custom-range::-webkit-slider-thumb {
-    width: 16px;
-    height: 32px;
-    margin-top: -14px;
-  }
-}
-
 .custom-range::-webkit-slider-runnable-track {
-  height: 4px;
-  width: 50%;
-  margin-top: -1px;
   background: linear-gradient(270deg, #ff4259 0%, #4462ff 53.65%, #3cf1bb 100%);
   border-radius: 10px;
+  width: 90%;
+  height: 100%;
 }
 
 .custom-range::-moz-range-progress {

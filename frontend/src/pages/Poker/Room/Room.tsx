@@ -9,11 +9,13 @@ import { ReactComponent as SvgUser } from "../../../assets/svg/User.svg";
 import { setSignUp, setWalletConnect } from "store/modal.slice";
 import { numberToSTR } from "utils/poker";
 import { getUsers } from "store/auth.slice";
+import { ToastrContext } from "providers/ToastrProvider";
 
 const Component = () => {
   const dispatch = useDispatch<AppDispatch>();
   const navigate = useNavigate();
   const { pokersocket } = useContext(SocketContext);
+  const notify = useContext(ToastrContext);
 
   const rooms = useSelector((state: RootState) => state.poker.robbyInfo);
   const auth = useSelector((state: RootState) => state.auth);
@@ -21,7 +23,7 @@ const Component = () => {
 
   const onJoin = (roomId: number) => {
     if (address) pokersocket.emit("enterRoom", { roomId, address });
-    else alert("You should login!!!");
+    else notify.error("You should login first!!!");
   };
 
   useEffect(() => {
@@ -43,7 +45,7 @@ const Component = () => {
     <>
       <img
         className="absolute select-none drop-shadow-[60px_50px_60px_rgba(0,0,0,.4)]"
-        src="/assets/table/room.png"
+        src="/assets/table/room.svg"
         alt="table"
         draggable={false}
       />
@@ -67,16 +69,10 @@ const Component = () => {
       ) : (
         <>
           <button
-            className="absolute top-[8%] left-[50.5%] z-30 w-[7%]"
+            className="absolute top-[8%] left-[50.5%] z-30 w-[14%]"
             onClick={() => dispatch(setWalletConnect(true))}
           >
-            <img src="/assets/buttons/lobby/login.png" />
-          </button>
-          <button
-            className="absolute top-[8%] left-[58%] z-30 w-[7%]"
-            onClick={() => dispatch(setSignUp(true))}
-          >
-            <img src="/assets/buttons/lobby/signup.png" />
+            <img src="/assets/buttons/connect.png" />
           </button>
         </>
       )}
@@ -149,7 +145,7 @@ const Component = () => {
                   </button>
                 )}
               </div>
-              <div className="border-y-[1px] border-[#6980A3] w-full"></div>
+              <div className="border-y-[1px] border-[#6980A3] w-f-4"></div>
             </div>
           ))}
         </div>
@@ -172,28 +168,34 @@ const Component = () => {
           className="hidden w-[50%] h-[90%]"
         ></img>
       </div>
-      <div className="absolute top-[16%] w-[30%] right-[1.8%] h-[78%] text-[10px] lg:text-[16px]">
+      <div className="absolute top-[16%] z-20 w-[30%] right-[1.8%] h-[78%] max-h-[78%] text-[10px] lg:text-[16px]">
         <div className="usertable opacity-60 flex items-center uppercase h-[10%]">
           <p className="gradient-text">Player</p>
           <p className="gradient-text text-center">Avatar</p>
           <p className="gradient-text text-center">#</p>
           <p className="gradient-text text-right">EBone</p>
         </div>
-        <div className="h-[90%] max-h-[90%] overflow-auto gradient-text">
+        <div className="h-[90%] max-h-[90%] overflow-auto">
           {auth.users.map((user: any, index) => (
             <div key={index} className="h-[15%]">
-              <div className="usertable items-center h-full-2 border-b-[#383F63] border-b-[2px]">
-                <p>{user.name}</p>
-                <div className="flex justify-center w-full">
+              <div className="usertable w-f-4 flex items-center h-full-2 border-b-[#383F63] border-b-[2px]">
+                <div className="flex items-center gradient-text">
+                  {user.name}
+                </div>
+                <div className="flex items-center justify-center w-full">
                   <img
                     src={user.avatar}
                     className="border border-[#D4E9FF] rounded-full w-6 h-6 lg:w-8 lg:h-8"
                   ></img>
                 </div>
-                <p className="text-center">{index + 1}</p>
-                <p className="text-right">{user.balance["ebone"]}</p>
+                <div className="flex items-center justify-center gradient-text">
+                  {index + 1}
+                </div>
+                <div className="flex items-center justify-end gradient-text">
+                  {user.balance["ebone"]}
+                </div>
               </div>
-              <div className="border-y-[1px] border-[#4D5A7D] w-full"></div>
+              <div className="border-y-[1px] border-[#4D5A7D] w-f-4"></div>
             </div>
           ))}
         </div>

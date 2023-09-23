@@ -27,7 +27,8 @@ const LogIn = () => {
       });
       if (result && result.status === 200) {
         dispatch(setAuth(result.data));
-        notify.success("Login Successfully!");
+        if (result.data.isNew) notify.success("Welcome to DDog Club!");
+        else notify.success("Login Successfully!");
       }
     } catch (errors: any) {
       console.log(errors);

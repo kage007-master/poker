@@ -7,6 +7,13 @@ import authController from "../controllers/auth.controller";
 import { Room } from "../models/Room";
 import { nullPlayer } from "../utils/poker";
 
+interface Message {
+  text: string;
+  address: string;
+  avatar: string;
+  time: Date;
+}
+
 export default class PokerService {
   private io!: Server;
   public tables: { [key: string]: Ring | SNG } = {};
@@ -14,6 +21,7 @@ export default class PokerService {
   public users: Record<string, User> = {};
   public tableCounter: number = 0;
   public roomCounter: number = 0;
+  messages: Message[] = [];
 
   constructor(io: Server) {
     this.io = io;
@@ -42,6 +50,15 @@ export default class PokerService {
       socket.on("raise", (data) => this.raise(socket, data));
       socket.on("check", (data) => this.check(socket, data));
       socket.on("allIn", (data) => this.allIn(socket, data));
+
+      socket.on("message", (data: any) => {
+        const newMessage = {
+          ...data,
+          time: new Date(),
+        };
+        this.messages.push(newMessage);
+        this.io.emit("message", newMessage);
+      });
 
       socket.on("reconnect", () => this.connect(socket, false));
       socket.on("disconnect", () => this.connect(socket, true));

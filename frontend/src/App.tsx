@@ -15,6 +15,7 @@ import {
 } from "context/socket";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import LogIn from "components/LogIn";
+import MessageProvider from "providers/MessageProvider";
 
 function App() {
   return (
@@ -25,9 +26,10 @@ function App() {
             value={{ mainsocket, crashsocket, pokersocket }}
           >
             <BrowserRouter>
+              <MessageProvider />
               <div
                 className="w-screen h-screen bg-center bg-cover bg-no-repeat overflow-hidden"
-                style={{ backgroundImage: `url(/assets/background.jpg)` }}
+                style={{ backgroundImage: `url(/assets/background.svg)` }}
               >
                 <div className="flex md:hidden justify-center flex-col items-center w-full h-full">
                   <img
