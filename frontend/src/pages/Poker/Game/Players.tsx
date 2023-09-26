@@ -134,10 +134,10 @@ const Players = () => {
                       } py-1 rounded-full` + betPositionClasses[index]
                     }
                   >
-                    <p className="font-[700] text-[#D4E9FF] text-[10px] lg:text-[14px]">
+                    <p className="font-[700] text-[#D4E9FF]">
                       {player.betAmount}
                     </p>
-                    <img className="h-full" src="/assets/pic.png" alt="" />
+                    <img className="pic" src="/assets/pic.png" alt="" />
                   </div>
                 </>
               )}
@@ -168,10 +168,8 @@ const Players = () => {
                       } py-1 rounded-full` + betPositionClasses[index]
                     }
                   >
-                    <p className="font-[700] text-[#D4E9FF] text-[10px] lg:text-[14px]">
-                      {player.prize}
-                    </p>
-                    <img className="h-full" src="/assets/pic.png" alt="" />
+                    <p className="font-[700] text-[#D4E9FF]">{player.prize}</p>
+                    <img className="pic" src="/assets/pic.png" alt="" />
                   </div>
                 </>
               )}
@@ -222,7 +220,7 @@ const Players = () => {
               >
                 <img
                   className={
-                    "rounded-xl lg:rounded-2xl border-[3px] lg:border-[6px] border-[#8399bd] " +
+                    "avatar rounded-xl lg:rounded-2xl p-[3px] lg:p-[4px] xl:p-[5px] 2xl:p-[6px] " +
                     (!player.address && !tableInfo.isMember
                       ? "cursor-pointer"
                       : "")
@@ -240,23 +238,20 @@ const Players = () => {
                 {player.address && (
                   <div
                     className={
-                      "absolute flex justify-center items-center text-[#D4E9FF] text-[10px] lg:text-[14px] px-3 bg-slate-600 rounded-full" +
+                      "absolute flex justify-center items-center text-[#D4E9FF] px-3 bg-slate-600 rounded-full" +
                       (index === 0
-                        ? " -bottom-[18px] lg:-bottom-[24px]"
-                        : " -top-[18px] lg:-top-[24px]")
+                        ? " -bottom-[18px] lg:-bottom-[24px] 2xl:-bottom-[32px]"
+                        : " -top-[18px] lg:-top-[24px] 2xl:-top-[32px]")
                     }
                   >
                     <div>{player.stack}</div>
-                    <img
-                      src="/assets/pic.png"
-                      className="h-[10px] lg:h-[14px] pl-[20%]"
-                    />
+                    <img src="/assets/pic.png" className="pic pl-[20%]" />
                   </div>
                 )}
 
                 {(player.status == "FOLD" || player.status == "CHECK") && (
                   <div className="absolute -bottom-[1.5%] fold w-full px-[1%] py-[10%] rounded-b-xl lg:rounded-b-2xl rounded-t-xl">
-                    <p className="text-[10px] lg:text-[14px] text-[#F5FAFF] font-[700] text-center">
+                    <p className="text-[#F5FAFF] font-[700] text-center">
                       {player.status}
                     </p>
                   </div>

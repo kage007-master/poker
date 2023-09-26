@@ -127,7 +127,7 @@ const BottomRightControllers = () => {
             draggable={false}
           />
           <div className="absolute flex gap-1 items-center">
-            <p className="font-[400] text-[#7C95BF] text-shadow text-[10px] sm:text-[16px] lg:text-[24px]">
+            <p className="font-[400] text-[#7C95BF] text-shadow text-[16px] lg:-text[18px] 2xl:text-[24px]">
               {value}
             </p>
             <img

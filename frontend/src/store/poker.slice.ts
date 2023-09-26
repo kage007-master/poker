@@ -7,6 +7,7 @@ interface IState {
   robbyInfo: any[];
   prevDealerId: number;
   messages: any[];
+  hHand: any;
 }
 
 const initialState: IState = {
@@ -15,6 +16,7 @@ const initialState: IState = {
   robbyInfo: [],
   prevDealerId: -1,
   messages: [],
+  hHand: {},
 };
 
 export const Slice = createSlice({
@@ -50,12 +52,16 @@ export const Slice = createSlice({
     setRobbyInfo: (state, action) => {
       state.robbyInfo = action.payload;
     },
+    setHHand: (state, action) => {
+      state.hHand = action.payload;
+    },
     newMessage: (state, action) => {
       state.messages.push(action.payload);
     },
   },
 });
 
-export const { setTableInfo, setRobbyInfo, newMessage } = Slice.actions;
+export const { setTableInfo, setRobbyInfo, setHHand, newMessage } =
+  Slice.actions;
 
 export default Slice.reducer;

@@ -1,5 +1,5 @@
 import React from "react";
-import ModalSignUp from "./ModalSignUp";
+import ModalProfile from "./ModalProfile";
 import ModalWalletConnect from "./ModalWalletConnect";
 import ModalAddChip from "./ModalAddChip";
 import ModalPrize from "./ModalPrize";
@@ -7,7 +7,7 @@ import ModalPrize from "./ModalPrize";
 const Modals = () => {
   return (
     <>
-      <ModalSignUp />
+      <ModalProfile />
       <ModalWalletConnect />
       <ModalAddChip />
       <ModalPrize />

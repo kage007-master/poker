@@ -2,8 +2,8 @@
 @tailwind components;
 @tailwind utilities;
 
-html {
-  font-family: "Poppins", sans-serif;
+* {
+  font-family: "Poppins", sans-serif !important;
 }
 
 .navbar {
@@ -20,7 +20,7 @@ html {
 .usertable {
   display: grid;
   grid-gap: 1%;
-  grid-template-columns: 25% 25% 22% 25%;
+  grid-template-columns: 28% 22% 22% 25%;
 }
 
 .gradient-text {
@@ -176,4 +176,63 @@ html {
 
 .myround {
   border-radius: 200px 100px 100px 200px;
+}
+
+.btn1 {
+  border-radius: 12px;
+  background: radial-gradient(
+    135.66% 135.66% at 100% 0%,
+    #4d597c 0%,
+    #56688e 100%
+  );
+  box-shadow: 4px 4px 24px 0px rgba(114, 136, 171, 0.56) inset,
+    -4px -4px 16px 0px rgba(44, 51, 82, 0.52) inset,
+    2px 2px 2px 0px rgba(122, 144, 176, 0.08) inset;
+
+  color: #d4e9ff;
+  text-align: center;
+  text-shadow: 2px 2px 3px rgba(64, 71, 105, 0.24);
+  font-style: normal;
+  font-weight: 700;
+  line-height: 151%;
+  letter-spacing: 0.32px;
+}
+
+.avatar {
+  background: radial-gradient(50% 100% at 0% 50%, #607596 0%, #444b6b 100%);
+}
+
+* {
+  font-size: 12px;
+}
+
+.pic {
+  height: 12px;
+}
+
+@media screen and (min-width: 1024px) {
+  * {
+    font-size: 14px;
+  }
+  .pic {
+    height: 14px;
+  }
+}
+
+@media screen and (min-width: 1280px) {
+  * {
+    font-size: 16px;
+  }
+  .pic {
+    height: 16px;
+  }
+}
+
+@media screen and (min-width: 1536px) {
+  * {
+    font-size: 18px;
+  }
+  .pic {
+    height: 18px;
+  }
 }

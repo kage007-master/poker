@@ -1,4 +1,4 @@
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import { SocketContext } from "context/socket";
 import { useDispatch, useSelector } from "react-redux";
 import { setRobbyInfo } from "store/poker.slice";
@@ -6,10 +6,11 @@ import { AppDispatch, RootState } from "store";
 import { useNavigate } from "react-router-dom";
 import { ReactComponent as SvgTable } from "../../../assets/svg/Table.svg";
 import { ReactComponent as SvgUser } from "../../../assets/svg/User.svg";
-import { setSignUp, setWalletConnect } from "store/modal.slice";
+import { setProfile, setWalletConnect } from "store/modal.slice";
 import { numberToSTR } from "utils/poker";
-import { getUsers } from "store/auth.slice";
+import { getUsers, setLogout } from "store/auth.slice";
 import { ToastrContext } from "providers/ToastrProvider";
+import { logout } from "@multiversx/sdk-dapp/utils";
 
 const Component = () => {
   const dispatch = useDispatch<AppDispatch>();
@@ -20,6 +21,27 @@ const Component = () => {
   const rooms = useSelector((state: RootState) => state.poker.robbyInfo);
   const auth = useSelector((state: RootState) => state.auth);
   const { address } = useSelector((state: RootState) => state.auth.user);
+  const [menu, setMenu] = useState(false);
+  const dropmenuRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    setTimeout(() => {
+      if (menu) document.addEventListener("click", handleClickOutside);
+      else document.removeEventListener("click", handleClickOutside);
+    }, 100);
+    return () => {
+      document.removeEventListener("click", handleClickOutside);
+    };
+  }, [menu]);
+
+  const handleClickOutside = (event: MouseEvent) => {
+    if (
+      dropmenuRef.current &&
+      !dropmenuRef.current.contains(event.target as Node)
+    ) {
+      setMenu(false);
+    }
+  };
 
   const onJoin = (roomId: number) => {
     if (address) pokersocket.emit("enterRoom", { roomId, address });
@@ -56,29 +78,66 @@ const Component = () => {
               className="w-[16px] lg:w-[24px]"
               src="/assets/switcher_bg.png"
             />
-            <p className="text-[10px] lg:text-[16px] ml-2 text-white">
+            <p className="ml-2 text-white">
               {auth.user.balance["ebone"]}
               <span className="gradient-text">{" EBONE"}</span>
             </p>
           </div>
           <img
-            className="ml-2 w-[32px] lg:w-[48px] border border-[#31395F88] rounded-full"
+            className="ml-2 w-[32px] lg:w-[48px] border border-[#31395F88] rounded-full cursor-pointer"
             src={auth.user.avatar}
+            onClick={() => setMenu(!menu)}
           />
+          {menu && (
+            <div
+              ref={dropmenuRef}
+              className="absolute right-0 top-[110%] bg-[#57688B] rounded-md px-3 min-w-[120px] lg:min-w-[180px]"
+            >
+              <p className="py-2 lg:py-3 border-b-[1px] text-center gradient-text">
+                {auth.user.name}
+              </p>
+              <div className="flex items-center py-2 lg:py-3 cursor-pointer">
+                <SvgUser className="w-4 h-4 lg:w-6 lg:h-6" />
+                <p className="gradient-text">Deposit</p>
+              </div>
+              <div className="flex items-center py-2 lg:py-3 cursor-pointer">
+                <SvgUser className="w-4 h-4 lg:w-6 lg:h-6" />
+                <p className="gradient-text">Withdraw</p>
+              </div>
+              <div
+                className="flex items-center py-2 lg:py-3 cursor-pointer"
+                onClick={() => {
+                  dispatch(setProfile(true));
+                }}
+              >
+                <SvgUser className="w-4 h-4 lg:w-6 lg:h-6" />
+                <p className="gradient-text">My Profile</p>
+              </div>
+              <div
+                className="flex items-center py-2 lg:py-3 cursor-pointer border-t-[1px]"
+                onClick={() => {
+                  logout();
+                  setMenu(false);
+                  dispatch(setLogout());
+                }}
+              >
+                <SvgUser className="w-4 h-4 lg:w-6 lg:h-6" />
+                <p className="gradient-text">Disconnect</p>
+              </div>
+            </div>
+          )}
         </div>
       ) : (
-        <>
-          <button
-            className="absolute top-[8%] left-[50.5%] z-30 w-[14%]"
-            onClick={() => dispatch(setWalletConnect(true))}
-          >
-            <img src="/assets/buttons/connect.png" />
-          </button>
-        </>
+        <button
+          className="absolute top-[8%] left-[46.5%] z-30 w-[18%] btn1 h-[8%]"
+          onClick={() => dispatch(setWalletConnect(true))}
+        >
+          <p className="gradient-text">Connect Wallet</p>
+        </button>
       )}
 
       <div className="absolute top-[20%] z-20 left-[2.5%] w-[62%] h-[76%] max-h-[80%]">
-        <div className="roomtable opacity-60 flex items-center uppercase text-[10px] lg:text-[16px] h-[12%]">
+        <div className="roomtable opacity-60 flex items-center uppercase h-[12%]">
           <p className="gradient-text">Blinds</p>
           <p className="gradient-text">Buy - In</p>
           <p className="gradient-text">Type</p>
@@ -89,32 +148,20 @@ const Component = () => {
         <div className="h-[88%] max-h-[88%] overflow-auto">
           {rooms.map((table: any, id) => (
             <div key={id} className="h-[17%]">
-              <div className="roomtable flex items-center text-[12px] h-full-2 lg:text-[18px] border-b-2 border-[#495577]">
+              <div className="roomtable flex items-center h-full-2 border-b-2 border-[#495577]">
                 <div className="flex items-center gradient-text">
-                  <img
-                    src="/assets/pic.png"
-                    className="h-[12px] lg:h-[18px] px-[2%]"
-                  />
+                  <img src="/assets/pic.png" className="pic px-[2%]" />
                   {numberToSTR(table.smallBlind) + "/"}
-                  <img
-                    src="/assets/pic.png"
-                    className="h-[12px] lg:h-[18px] px-[2%]"
-                  />
+                  <img src="/assets/pic.png" className="pic px-[2%]" />
                   {numberToSTR(table.bigBlind)}
                 </div>
                 <div className="flex items-center gradient-text">
-                  <img
-                    src="/assets/pic.png"
-                    className="h-[12px] lg:h-[18px] px-[2%]"
-                  />
+                  <img src="/assets/pic.png" className="pic px-[2%]" />
                   {numberToSTR(table.BuyIn)}
                   {table.type === "Ring Game" && (
                     <>
                       /
-                      <img
-                        src="/assets/pic.png"
-                        className="h-[12px] lg:h-[18px] px-[2%]"
-                      />
+                      <img src="/assets/pic.png" className="pic px-[2%]" />
                       {numberToSTR(table.maxBuyIn)}
                     </>
                   )}
@@ -168,7 +215,7 @@ const Component = () => {
           className="hidden w-[50%] h-[90%]"
         ></img>
       </div>
-      <div className="absolute top-[16%] z-20 w-[30%] right-[1.8%] h-[78%] max-h-[78%] text-[10px] lg:text-[16px]">
+      <div className="absolute top-[16%] z-20 w-[30%] right-[1.8%] h-[78%] max-h-[78%]">
         <div className="usertable opacity-60 flex items-center uppercase h-[10%]">
           <p className="gradient-text">Player</p>
           <p className="gradient-text text-center">Avatar</p>

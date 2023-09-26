@@ -55,6 +55,7 @@ export class Ring {
   prizes: number[] = [];
   lastNewPlayerId: number = -1;
   disconnectList: Socket[] = [];
+  parent: any;
 
   constructor(
     server: Server,
@@ -63,7 +64,8 @@ export class Ring {
     type: "Ring Game",
     smallBlind: number,
     bigBlind: number,
-    roomid: number
+    roomid: number,
+    parent: any
   ) {
     this.server = server;
     this.id = id;
@@ -74,6 +76,7 @@ export class Ring {
     this.bigBlind = bigBlind;
     this.BuyIn = this.bigBlind * 10;
     this.round = Round.OVER;
+    this.parent = parent;
     for (let i = 0; i < 6; i++) this.players[i] = nullPlayer();
     this.test();
   }
@@ -349,6 +352,7 @@ export class Ring {
         );
       }
     }
+    let bfirst = true;
     while (numberOfActivePlayers(players)) {
       let hands: any[] = [],
         arr: any[] = [];
@@ -361,11 +365,20 @@ export class Ring {
         }
       }
       let winners = Hand.winners(arr);
-      for (let winner of winners) console.log(winner.cards, winner.descr);
       console.log("--------");
-      let order: number[] = [];
+      let order: number[] = [],
+        winusers: string[] = [];
       for (let i = 0; i < 6; i++) {
-        if (winners.includes(hands[i])) order.push(i);
+        if (winners.includes(hands[i]))
+          order.push(i), winusers.push(players[i].address);
+      }
+      if (bfirst) {
+        if (community1.length == 5)
+          this.parent.updateHighHand({
+            newHHand: winners[0],
+            newWinners: winusers,
+          });
+        bfirst = false;
       }
       console.log(order);
       order.sort((a, b) => players[b].totalBet - players[a].totalBet);

@@ -129,7 +129,7 @@ const Component = () => {
 
           {tableInfo.pot > 0 ? (
             <div className="flex justify-center absolute z-30 w-[55%] top-[30%]">
-              <p className="text-center font-[600] text-[#6C7BA7] text-shadow2 text-[10px] lg:text-[14px]">
+              <p className="text-center font-[600] text-[#6C7BA7] text-shadow2">
                 TOTAL POT:{" "}
                 <span className="text-[#1BD1E1]">{tableInfo.pot}</span>
               </p>

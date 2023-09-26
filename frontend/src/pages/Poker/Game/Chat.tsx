@@ -18,7 +18,7 @@ const ChatModal = () => {
     setText("");
   };
   return (
-    <div className="absolute w-[320px] lg:w-[380px] h-max rounded-2xl bottom-[110%] left-0 overflow-hidden text-[10px] lg:text-[14px]">
+    <div className="absolute w-[320px] lg:w-[380px] h-max rounded-2xl bottom-[110%] left-0 overflow-hidden">
       <div className="flex flex-col gap-2 lg:gap-4 backdrop-blur-lg bg-gradient-to-br from-[#444B6B]/[.8] to-[#5A6B8C]/[.8] w-full min-h-[200px] lg:min-h-[250px] h-max py-4 px-4 overflow-y-auto overflow-x-hidden max-h-[200px] lg:max-h-[250px]">
         {messages.map((message, index) => (
           <div

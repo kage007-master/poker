@@ -52,12 +52,8 @@ const ModalAddChip = () => {
               positions[addchip]
             }
           >
-            <div className="flex items-center justify-center text-[18px] lg:text-[24px] gradient-text">
-              {value}{" "}
-              <img
-                src="/assets/pic.png"
-                className="h-[18px] lg:h-[24px] px-[2%]"
-              />
+            <div className="flex items-center justify-center gradient-text">
+              {value} <img src="/assets/pic.png" className="pic px-[2%]" />
             </div>
             <div className="py-2">
               <input

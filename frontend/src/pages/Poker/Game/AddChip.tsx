@@ -14,10 +14,8 @@ const AddChip = () => {
   return (
     <div className="absolute bottom-[3%] left-[9.5%] h-[6.5%] z-30 pl-[0.4%] pt-[0.4%] pb-[0.2%] rounded-full bg-[#414C6D] flex gap-1 items-center">
       <img className="h-full" src="/assets/chips/blue_chip.png" alt="" />
-      <p className="font-[700] text-[#D4E9FF] text-[10px] lg:text-[14px]">
-        {tableInfo.players[0].stack}
-      </p>
-      <img className="h-[70%]" src="/assets/pic.png" alt="" />
+      <p className="font-[700] text-[#D4E9FF]">{tableInfo.players[0].stack}</p>
+      <img className="pic" src="/assets/pic.png" alt="" />
       <img
         className="h-[125%] ml-1 cursor-pointer"
         src={`/assets/buttons/add-chip${

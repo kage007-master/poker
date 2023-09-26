@@ -5,6 +5,7 @@
   "dependencies": {
     "@iconify/react": "^4.1.0",
     "@multiversx/sdk-dapp": "^2.13.2",
+    "@multiversx/sdk-network-providers": "^2.0.0",
     "@reduxjs/toolkit": "^1.9.5",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",

@@ -2,7 +2,7 @@ import { SocketContext } from "context/socket";
 import { useContext, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "store";
-import { newMessage } from "store/poker.slice";
+import { newMessage, setHHand } from "store/poker.slice";
 
 const MessageProvider = () => {
   const dispatch = useDispatch<AppDispatch>();
@@ -10,11 +10,16 @@ const MessageProvider = () => {
   const address = useSelector((state: RootState) => state.auth.user.address);
 
   useEffect(() => {
+    pokersocket.on("HighHand", (data: any) => {
+      dispatch(setHHand(data));
+      console.log(data);
+    });
     pokersocket.on("message", (data: any) => {
       dispatch(newMessage({ ...data, me: data.address === address }));
     });
     return () => {
       pokersocket.off("message");
+      pokersocket.off("HighHand");
     };
   });
   return null;

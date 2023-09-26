@@ -13,7 +13,6 @@ import { AppDispatch, RootState } from "../store";
 import env from "../config";
 
 const LogIn = () => {
-  const signUp = useSelector((state: RootState) => state.modal.signUp);
   const account = useGetAccountInfo();
   const isLogin = useGetIsLoggedIn();
   const dispatch = useDispatch<AppDispatch>();
@@ -42,7 +41,6 @@ const LogIn = () => {
 
   useEffect(() => {
     if (!isLogin) return;
-    if (signUp) return;
     dispatch(setWalletConnect(false));
     handleLogin();
     return () => {};

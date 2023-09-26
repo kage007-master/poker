@@ -1,11 +1,12 @@
 import { Server, Socket } from "socket.io";
-
 import { Ring } from "../models/Ring";
 import { SNG } from "../models/SNG";
 import { User } from "../types/User";
 import authController from "../controllers/auth.controller";
 import { Room } from "../models/Room";
 import { nullPlayer } from "../utils/poker";
+
+const Hand = require("pokersolver").Hand;
 
 interface Message {
   text: string;
@@ -21,6 +22,9 @@ export default class PokerService {
   public users: Record<string, User> = {};
   public tableCounter: number = 0;
   public roomCounter: number = 0;
+  public hHands: any = null;
+  public hHandUsers: string[] = [];
+
   messages: Message[] = [];
 
   constructor(io: Server) {
@@ -62,6 +66,10 @@ export default class PokerService {
 
       socket.on("reconnect", () => this.connect(socket, false));
       socket.on("disconnect", () => this.connect(socket, true));
+      socket.emit("HighHand", {
+        cards: this.hHands?.cards,
+        users: this.hHandUsers,
+      });
     });
   };
 
@@ -85,6 +93,7 @@ export default class PokerService {
         smallBlind,
         bigBlind,
         roomid: this.roomCounter,
+        parent: this,
       });
     }
     this.roomCounter++;
@@ -144,7 +153,7 @@ export default class PokerService {
   };
 
   createTable = async (data: any) => {
-    const { name, type, smallBlind, bigBlind, roomid } = data;
+    const { name, type, smallBlind, bigBlind, roomid, parent } = data;
     this.tables[this.tableCounter] = new Ring(
       this.io,
       Number(this.tableCounter),
@@ -152,7 +161,8 @@ export default class PokerService {
       type,
       smallBlind,
       bigBlind,
-      roomid
+      roomid,
+      parent
     );
     this.rooms[roomid].tables.push(this.tableCounter);
     this.tableCounter++;
@@ -316,6 +326,30 @@ export default class PokerService {
   broadcastMessage = (channel: string, data: any = {}) => {
     this.io.emit(channel, data);
   };
+
+  updateHighHand(data: any) {
+    if (!this.hHands) {
+      this.hHands = data.newHHand;
+      this.hHandUsers = data.newWinners;
+    } else {
+      let temp: any[] = [];
+      temp.push(this.hHands);
+      temp.push(data.newHHand);
+      let winners = Hand.winners(temp);
+      if (winners.includes(data.newHHand)) {
+        if (!winners.includes(this.hHands)) {
+          this.hHands = data.newHHand;
+          this.hHandUsers = data.newWinners;
+        } else {
+          this.hHandUsers = this.hHandUsers.concat(data.newWinners);
+        }
+      }
+    }
+    this.broadcastMessage("HighHand", {
+      cards: this.hHands.cards,
+      users: this.hHandUsers,
+    });
+  }
 
   connect = (socket: Socket, status: boolean) => {
     Object.keys(this.tables).forEach((key) => {
