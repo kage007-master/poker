@@ -12,6 +12,9 @@
 // import { ReactComponent as ADA } from "../assets/svg/ADA.svg";
 // import { ReactComponent as SOL } from "../assets/svg/SOL.svg";
 // import { ReactComponent as EBONE } from "../assets/svg/EBONE.svg";
+import pic from "../assets/pic.png";
+
+export const images = { pic };
 
 export const initAvatar =
   "https://upcdn.io/W142hJk/image/demo/4mTLJiq7Ke.png?w=600&h=600&fit=max&q=70";

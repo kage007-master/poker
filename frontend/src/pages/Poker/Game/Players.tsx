@@ -1,3 +1,4 @@
+import { images } from "config/const";
 import { SocketContext } from "context/socket";
 import { useContext } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -137,7 +138,7 @@ const Players = () => {
                     <p className="font-[700] text-[#D4E9FF]">
                       {player.betAmount}
                     </p>
-                    <img className="pic" src="/assets/pic.png" alt="" />
+                    <img className="pic" src={images.pic} alt="" />
                   </div>
                 </>
               )}
@@ -169,7 +170,7 @@ const Players = () => {
                     }
                   >
                     <p className="font-[700] text-[#D4E9FF]">{player.prize}</p>
-                    <img className="pic" src="/assets/pic.png" alt="" />
+                    <img className="pic" src={images.pic} alt="" />
                   </div>
                 </>
               )}
@@ -245,7 +246,7 @@ const Players = () => {
                     }
                   >
                     <div>{player.stack}</div>
-                    <img src="/assets/pic.png" className="pic pl-[20%]" />
+                    <img src={images.pic} className="pic pl-[20%]" />
                   </div>
                 )}
 

@@ -3,6 +3,7 @@ import { SocketContext } from "context/socket";
 import { useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { RootState } from "store";
+import { images } from "config/const";
 
 const BottomRightControllers = () => {
   const { id } = useParams();
@@ -47,8 +48,8 @@ const BottomRightControllers = () => {
           className="cursor-pointer"
           src={
             tableInfo.isCheck
-              ? "/assets/buttons/right-bottom/check_bg.png"
-              : "/assets/buttons/right-bottom/check_dis.png"
+              ? "/assets/buttons/right-bottom/check_bg.svg"
+              : "/assets/buttons/right-bottom/check_dis.svg"
           }
           alt="btn"
           draggable={false}
@@ -58,8 +59,8 @@ const BottomRightControllers = () => {
           className="cursor-pointer"
           src={
             tableInfo.isCheck
-              ? "/assets/buttons/right-bottom/call_dis.png"
-              : "/assets/buttons/right-bottom/call_bg.png"
+              ? "/assets/buttons/right-bottom/call_dis.svg"
+              : "/assets/buttons/right-bottom/call_bg.svg"
           }
           alt="btn"
           draggable={false}
@@ -122,17 +123,15 @@ const BottomRightControllers = () => {
         <div className="relative flex justify-center items-center">
           <img
             className="drop-shadow-[0px_3px_1px_rgba(0,0,0,.4)]"
-            src="/assets/buttons/range/Rectangle46.png"
+            src="/assets/buttons/range/rectangle.svg"
             alt=""
             draggable={false}
           />
           <div className="absolute flex gap-1 items-center">
-            <p className="font-[400] text-[#7C95BF] text-shadow text-[16px] lg:-text[18px] 2xl:text-[24px]">
-              {value}
-            </p>
+            <p className="text-[#7C95BF] text-shadow text-huge">{value}</p>
             <img
-              className="w-[5px] sm:w-[8px] lg:w-[13px] -mb-1"
-              src="/assets/pic.png"
+              className="pic-huge"
+              src={images.pic}
               alt=""
               draggable={false}
             />

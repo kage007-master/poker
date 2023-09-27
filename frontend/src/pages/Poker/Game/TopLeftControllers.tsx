@@ -11,7 +11,7 @@ const Settings = () => {
         <p className="text-[14px] lg:text-[18px] 2xl:text-[24px] gradient-text">
           Settings
         </p>
-        <div className="flex text-[#6C7BA7] text-shadow2 place-items-center gap-2 my-2 xl:my-3">
+        <div className="flex text-[#6C7BA7] text-shadow2 place-items-center p-2 gap-2 my-2 xl:my-3">
           <p>EBONE</p>
           <div
             className={`flex w-[32px] lg:w-[48px] xl:w-[72px] bg-[#1e2940]/[.3] rounded-full cursor-pointer ${
@@ -21,14 +21,14 @@ const Settings = () => {
           >
             <img
               src="/assets/switcher_bg.png"
-              className="w-[16px] lg:w-[24px] 2xl:w-[36px]"
+              className="w-[16px] lg:w-[24px] xl:w-[36px]"
               alt=""
             />
           </div>
           <p>BB</p>
         </div>
-        <p className="text-white">Volume</p>
-        <div className="my-2 xl:my-3">
+        <p className="text-white text-tiny">Volume</p>
+        <div className="p-2 my-2 xl:my-3">
           <input
             className="custom-range"
             type="range"
@@ -38,8 +38,8 @@ const Settings = () => {
             defaultValue={50}
           />
         </div>
-        <p className="text-white">Sound Effects</p>
-        <div className="flex text-[#6C7BA7] text-shadow2 place-items-center gap-2 my-2 xl:my-3">
+        <p className="text-white text-tiny">Sound Effects</p>
+        <div className="flex text-[#6C7BA7] text-shadow2 place-items-center p-2 gap-2 my-2 xl:my-3">
           <p className={switcher ? "text-white" : ""}>ON</p>
           <div
             className={`flex w-[32px] lg:w-[48px] xl:w-[72px] bg-[#1e2940]/[.3] rounded-full cursor-pointer ${
@@ -47,18 +47,14 @@ const Settings = () => {
             }`}
             onClick={() => setSwitcher(!switcher)}
           >
-            <img
-              src={
-                switcher ? "/assets/buttons/on.png" : "/assets/buttons/off.png"
-              }
-              className="w-[16px] lg:w-[24px] xl:w-[36px]"
-              alt=""
-            />
+            <div className="circle h-[16px] lg:h-[24px] xl:h-[36px] w-[16px] lg:w-[24px] xl:w-[36px] flex items-center justify-center">
+              {switcher && <div className="circle2 w-[50%] h-[50%]" />}
+            </div>
           </div>
           <p className={!switcher ? "text-white" : ""}>OFF</p>
         </div>
-        <p className="text-white">Chatbox</p>
-        <div className="flex text-[#6C7BA7] text-shadow2 place-items-center gap-2 mt-2 xl:mt -3">
+        <p className="text-white text-tiny">Chatbox</p>
+        <div className="flex text-[#6C7BA7] text-shadow2 place-items-center p-2 gap-2 mt-2 xl:mt -3">
           <p className={switcher ? "text-white" : ""}>ON</p>
           <div
             className={`flex w-[32px] lg:w-[48px] xl:w-[72px] bg-[#1e2940]/[.3] rounded-full cursor-pointer ${
@@ -66,13 +62,9 @@ const Settings = () => {
             }`}
             onClick={() => setSwitcher(!switcher)}
           >
-            <img
-              src={
-                switcher ? "/assets/buttons/on.png" : "/assets/buttons/off.png"
-              }
-              className="w-[16px] lg:w-[24px] xl:w-[36px]"
-              alt=""
-            />
+            <div className="circle h-[16px] lg:h-[24px] xl:h-[36px] w-[16px] lg:w-[24px] xl:w-[36px] flex items-center justify-center">
+              {switcher && <div className="circle2 w-[50%] h-[50%]" />}
+            </div>
           </div>
           <p className={!switcher ? "text-white" : ""}>OFF</p>
         </div>
@@ -83,7 +75,6 @@ const Settings = () => {
 
 const HighHandModal = () => {
   const { cards } = useSelector((state: RootState) => state.poker.hHand);
-  console.log(cards);
 
   return (
     <div className="absolute w-[500%] max-w-[380px] rounded-2xl top-[105%] left-0 overflow-hidden">
@@ -103,9 +94,7 @@ const HighHandModal = () => {
       </div>
       <div className="flex flex-col items-center bg-gradient-to-br from-[#505880] to-[#667AA0] h-full py-2 lg:py-4">
         <p className="font-[600] text-[#D5E9FF]">START AT:</p>
-        <p className="font-[400] text-[20px] lg:text-[24px] text-[#7C95BF] text-shadow">
-          01:00:00
-        </p>
+        <p className="text-huge text-[#7C95BF] text-shadow">01:00:00</p>
       </div>
     </div>
   );
@@ -205,7 +194,7 @@ const TopLeftControllers = () => {
           onClick={handleHhClick}
         />
         {hhOpen == false && (
-          <p className="absolute font-[700] text-[6px] sm:text-[8px] lg:text-[14px] text-[#D5E9FF] opacity-[0.72] pt-3 whitespace-nowrap">
+          <p className="absolute font-[700] text-[#D5E9FF] opacity-[0.72] pt-3 whitespace-nowrap">
             High Hand
           </p>
         )}

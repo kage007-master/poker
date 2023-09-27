@@ -11,6 +11,7 @@ import { numberToSTR } from "utils/poker";
 import { getUsers, setLogout } from "store/auth.slice";
 import { ToastrContext } from "providers/ToastrProvider";
 import { logout } from "@multiversx/sdk-dapp/utils";
+import { images } from "config/const";
 
 const Component = () => {
   const dispatch = useDispatch<AppDispatch>();
@@ -150,18 +151,18 @@ const Component = () => {
             <div key={id} className="h-[17%]">
               <div className="roomtable flex items-center h-full-2 border-b-2 border-[#495577]">
                 <div className="flex items-center gradient-text">
-                  <img src="/assets/pic.png" className="pic px-[2%]" />
+                  <img src={images.pic} className="pic px-[2%]" />
                   {numberToSTR(table.smallBlind) + "/"}
-                  <img src="/assets/pic.png" className="pic px-[2%]" />
+                  <img src={images.pic} className="pic px-[2%]" />
                   {numberToSTR(table.bigBlind)}
                 </div>
                 <div className="flex items-center gradient-text">
-                  <img src="/assets/pic.png" className="pic px-[2%]" />
+                  <img src={images.pic} className="pic px-[2%]" />
                   {numberToSTR(table.BuyIn)}
                   {table.type === "Ring Game" && (
                     <>
                       /
-                      <img src="/assets/pic.png" className="pic px-[2%]" />
+                      <img src={images.pic} className="pic px-[2%]" />
                       {numberToSTR(table.maxBuyIn)}
                     </>
                   )}
@@ -185,10 +186,12 @@ const Component = () => {
                   <div className="gradient-text">{table.status}</div>
                 ) : (
                   <button
-                    className="uppercase"
+                    className="btn2 uppercase p-2"
                     onClick={() => onJoin(table.id)}
                   >
-                    <img src="/assets/buttons/join.png" alt=""></img>
+                    <div className="btn3 p-1">
+                      <p className="gradient-text text-tiny">Join</p>
+                    </div>
                   </button>
                 )}
               </div>
