@@ -108,11 +108,11 @@ export class SNG {
     this.players[position] = player;
     this.lastNewPlayerId = position;
     this.broadcast();
-    if (this.numberOfPlayers() == 2) {
-      this.remainTime = 10;
+    if (this.numberOfPlayers() === 2) {
+      this.remainTime = 60;
       setTimeout(this.down, 1000);
     }
-    if (this.numberOfPlayers() === 4) this.remainTime = 3;
+    if (this.numberOfPlayers() === 4) this.remainTime = 10;
   }
 
   leaveSeat(pos: number) {
@@ -380,12 +380,9 @@ export class SNG {
         }
       }
       let winners = Hand.winners(arr);
-      for (let winner of winners) console.log(winner.cards, winner.descr);
       console.log("--------");
       let order: number[] = [];
-      for (let i = 0; i < 6; i++) {
-        if (winners.includes(hands[i])) order.push(i);
-      }
+      for (let i = 0; i < 6; i++) if (winners.includes(hands[i])) order.push(i);
       console.log(order);
       order.sort((a, b) => players[b].totalBet - players[a].totalBet);
       while (order.length) {
@@ -400,14 +397,17 @@ export class SNG {
         for (let i of order) {
           let v = Math.floor(prize / order.length);
           players[i].stack += v;
-          console.log("---", i, v, players[i].stack, this.players[i].stack);
           earnings[i] += v;
         }
         players[cur].status = "FOLD";
         order.pop();
       }
     }
-    for (let i = 0; i < 6; i++) players[i].status = oldStatus[i];
+    for (let i = 0; i < 6; i++) {
+      players[i].stack += players[i].totalBet;
+      earnings[i] += players[i].totalBet;
+      players[i].status = oldStatus[i];
+    }
     console.log("----------------- END --------------------");
     console.log(players.map((player) => player.stack));
     this.status = "OVER";
@@ -604,9 +604,9 @@ export class SNG {
   };
 
   broadcast(channel: string = "") {
-    console.log(this.status, this.currentPlayerId);
-    console.log(this.players.map((player) => player.status));
-    console.log(this.players.map((player) => player.betAmount));
+    // console.log(this.status, this.currentPlayerId);
+    // console.log(this.players.map((player) => player.status));
+    // console.log(this.players.map((player) => player.betAmount));
 
     this.server
       .in("room-" + this.id)

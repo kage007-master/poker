@@ -13,6 +13,9 @@ const ModalPrize = () => {
     dispatch(setPrize(false));
     navigate("/");
   };
+  const { rank, prize } = useSelector(
+    (state: RootState) => state.modal.prizedata
+  );
   return (
     <Modal
       id="modalAuth"
@@ -24,16 +27,23 @@ const ModalPrize = () => {
     >
       <div className="w-[300px] lg:w-[420px] rounded-2xl mt-6 overflow-hidden">
         <div className="flex flex-col gap-3 lg:gap-5 items-center backdrop-blur-lg bg-gradient-to-br from-[#444B6B]/[.5] to-[#5A6B8C]/[.5] w-full h-max p-3 lg:p-4">
-          <p className="uppercase">Good Game!</p>
-          <p className="text-xl lg:text-3xl gradient-text">You finished 1st</p>
+          <p className="uppercase">
+            {rank === 1 ? "Congratulations!" : "Good Game!"}
+          </p>
+          <p className="text-huge gradient-text">
+            You finished {rank}
+            {rank === 1 ? "st" : rank === 2 ? "nd" : "th"}
+          </p>
           <div className="bg-[#505880] p-2 lg:p-3 rounded-md">
-            <p className="gradient-text">Prize: 1000 EBONE</p>
+            <p className="gradient-text">Prize: {prize} EBONE</p>
           </div>
-          <img src="/assets/prize.png" className="mx-auto w-32 lg:w-40"></img>
+          <img src="/assets/prize.png" className="mx-auto w-32 lg:w-40" />
         </div>
-        <div className="flex flex-col items-center bg-gradient-to-br from-[#505880] to-[#667AA0] h-full py-2 lg:py-4">
-          <button onClick={handleClose}>
-            <img className="w-[80%] mx-auto" src="/assets/buttons/save  .png" />
+        <div className="flex justify-center items-center bg-gradient-to-br from-[#505880] to-[#667AA0] min-h-[70px]">
+          <button className="btn2 uppercase p-2" onClick={handleClose}>
+            <div className="btn-blue rounded-md py-1 px-8">
+              <p className="gradient-text">Ok</p>
+            </div>
           </button>
         </div>
       </div>

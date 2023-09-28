@@ -73,7 +73,7 @@ const ModalProfile = () => {
       contentLabel="Sign Up"
     >
       <div className="flex items-center ">
-        <img src="/assets/ddog.png" className="w-10 lg:w-20"></img>
+        <img src="/assets/ddog.png" className="w-10 lg:w-20" />
         <h1 className="text-2xl lg:text-4xl text-bright pl-2">
           User Information
         </h1>
@@ -82,7 +82,7 @@ const ModalProfile = () => {
       <div className="rounded-2xl mt-6 overflow-hidden">
         <div className="flex flex-col gap-2 lg:gap-4 items-center backdrop-blur-lg bg-gradient-to-br from-[#444B6B]/[.5] to-[#5A6B8C]/[.5] w-full h-max p-3 lg:p-4">
           <div className="flex items-center">
-            <img src={avatar} className="w-20 h-20 border rounded-full"></img>
+            <img src={avatar} className="w-20 h-20 border rounded-full" />
             <input
               value={name}
               onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
@@ -118,9 +118,11 @@ const ModalProfile = () => {
             })}
           </div>
         </div>
-        <div className="flex flex-col items-center bg-gradient-to-br from-[#505880] to-[#667AA0] h-full py-2 lg:py-4">
-          <button onClick={handleProfile}>
-            <img className="w-[80%] mx-auto" src="assets/buttons/save.png" />
+        <div className="flex justify-center items-center bg-gradient-to-br from-[#505880] to-[#667AA0] min-h-[70px]">
+          <button className="btn2 uppercase p-2" onClick={handleProfile}>
+            <div className="btn-blue rounded-md py-1 px-8">
+              <p className="gradient-text">Save</p>
+            </div>
           </button>
         </div>
       </div>

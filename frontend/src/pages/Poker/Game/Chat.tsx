@@ -67,7 +67,7 @@ const ChatModal = () => {
           onKeyDown={(e: React.KeyboardEvent<HTMLInputElement>) => {
             if (e.code === "Enter") sendMessage();
           }}
-        ></input>
+        />
       </div>
     </div>
   );

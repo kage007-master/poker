@@ -32,79 +32,57 @@ const BottomRightControllers = () => {
     setValue(tableInfo.minRaise);
   }, [tableInfo.minRaise]);
 
-  if (!tableInfo.isTurn) return null;
+  // if (!tableInfo.isTurn) return null;
 
   return (
     <>
-      <div className="grid grid-cols-4 justify-end gap-2 absolute bottom-[3%] right-[1.8%] z-50 w-[30%]">
-        <img
-          className="cursor-pointer"
-          src="/assets/buttons/right-bottom/down_btn.png"
-          alt="btn"
-          draggable={false}
+      <div className="grid grid-cols-4 justify-end gap-2 absolute bottom-[3%] right-[1.8%] z-50 w-[30%] h-[9%]">
+        <button
+          className="btn4 p-2 rounded-2xl rounded-tl-5xl"
           onClick={onFold}
-        />
-        <img
-          className="cursor-pointer"
-          src={
-            tableInfo.isCheck
-              ? "/assets/buttons/right-bottom/check_bg.svg"
-              : "/assets/buttons/right-bottom/check_dis.svg"
-          }
-          alt="btn"
-          draggable={false}
+        >
+          <div className="h-full btn-red rounded-xl rounded-tl-4xl flex items-center justify-center">
+            <img className="pic-huge" src={images.fold} />
+          </div>
+        </button>
+        <button
+          className={`btn4 rounded-2xl ${!tableInfo.isCheck ? "disabled" : ""}`}
+          disabled={!tableInfo.isCheck}
           onClick={onCheck}
-        />
-        <img
-          className="cursor-pointer"
-          src={
-            tableInfo.isCheck
-              ? "/assets/buttons/right-bottom/call_dis.svg"
-              : "/assets/buttons/right-bottom/call_bg.svg"
-          }
-          alt="btn"
-          draggable={false}
+        >
+          <p className="gradient-text uppercase font-[700]">Check</p>
+        </button>
+        <button
+          className={`btn4 rounded-2xl ${tableInfo.isCheck ? "disabled" : ""}`}
+          disabled={tableInfo.isCheck}
           onClick={onCall}
-        />
-        <img
-          className={"cursor-pointer"}
-          src="/assets/buttons/right-bottom/up_btn.png"
-          alt="btn"
-          draggable={false}
+        >
+          <p className="gradient-text uppercase font-[700]">Call</p>
+        </button>
+        <button
+          className="btn4 p-2 rounded-2xl rounded-br-5xl"
           onClick={onRaise}
-        />
+        >
+          <div className="h-full btn-blue rounded-xl rounded-br-4xl flex items-center justify-center">
+            <img className="pic-huge" src={images.raise} />
+          </div>
+        </button>
       </div>
 
       {/* MIN, 1/2, POT, MAX */}
-      <div className="grid grid-cols-4 justify-end gap-2 absolute bottom-[15%] right-[1.8%] z-50 w-[18.5%]">
-        <img
-          className={"cursor-pointer"}
-          src="/assets/buttons/right-bottom/min_bg.png"
-          alt="btn"
-          draggable={false}
-          onClick={() => {}}
-        />
-        <img
-          className={"cursor-pointer"}
-          src="/assets/buttons/right-bottom/1_2_bg.png"
-          alt="btn"
-          draggable={false}
-          onClick={() => {}}
-        />
-        <img
-          className={"cursor-pointer"}
-          src="/assets/buttons/right-bottom/pot_bg.png"
-          alt="btn"
-          draggable={false}
-          onClick={() => {}}
-        />
-        <img
-          className={"cursor-pointer"}
-          src="/assets/buttons/right-bottom/max_bg.png"
-          alt="btn"
-          draggable={false}
-          onClick={() => {}}
-        />
+      <div className="grid grid-cols-4 justify-end gap-2 absolute bottom-[15%] right-[1.8%] z-50 w-[18.5%] h-[8.4%]">
+        <button className="btn4 rounded-2xl rounded-tl-4xl" onClick={() => {}}>
+          <p className="gradient-text text-tiny font-[700]">MIN</p>
+        </button>
+        <button className="btn4 rounded-2xl" onClick={() => {}}>
+          <p className="gradient-text text-tiny font-[700]">1/2</p>
+        </button>
+        <button className="btn4 rounded-2xl" onClick={() => {}}>
+          <p className="gradient-text text-tiny font-[700]">POT</p>
+        </button>
+        <button className="btn4 rounded-2xl rounded-br-4xl" onClick={() => {}}>
+          <p className="gradient-text text-tiny font-[700]">MAX</p>
+        </button>
       </div>
 
       {/* Slider */}

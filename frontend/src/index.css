@@ -121,6 +121,21 @@
     1px 1px 1px 0px rgba(255, 255, 255, 0.64) inset;
 }
 
+.btn4 {
+  background: radial-gradient(
+    203.97% 141.42% at 0% 0%,
+    #535f86 0%,
+    #40496c 100%
+  );
+  box-shadow: 4px 4px 24px 0px rgba(137, 153, 180, 0.24) inset,
+    -4px -4px 16px 0px rgba(44, 51, 82, 0.88) inset,
+    2px 2px 2px 0px rgba(104, 115, 159, 0.16) inset;
+}
+
+.disabled {
+  opacity: 0.56;
+}
+
 .custom-range::-moz-range-progress {
   height: 6px;
   background: linear-gradient(
@@ -130,6 +145,7 @@
     #3cf1bb 100%
   ); /* Измените цвет трека перед thumb на красный */
   border-radius: 10px;
+  filter: blur(1px);
 }
 
 * {
@@ -232,8 +248,7 @@
   font-weight: 700;
 }
 
-.btn3 {
-  border-radius: 8px;
+.btn-blue {
   background: radial-gradient(
     123.11% 141.42% at 0% 0%,
     #85ffd3 0%,
@@ -242,6 +257,16 @@
   box-shadow: 2px 2px 8px 0px rgba(210, 255, 220, 0.72) inset,
     2px 2px 2px 0px rgba(63, 73, 100, 0.24);
   font-weight: 700;
+}
+
+.btn-red {
+  background: radial-gradient(
+    155.21% 141.42% at 0% 0%,
+    #ffc5b8 0%,
+    #db3297 100%
+  );
+  box-shadow: 2px 2px 8px 0px rgba(255, 234, 210, 0.72) inset;
+  filter: drop-shadow(2px 2px 2px rgba(63, 73, 100, 0.32));
 }
 
 .avatar {
@@ -255,7 +280,18 @@
     rgba(90, 107, 140, 0.8) 100%
   );
 }
-
+.rounded-tl-4xl {
+  border-top-left-radius: 2rem !important;
+}
+.rounded-tl-5xl {
+  border-top-left-radius: 2.5rem !important;
+}
+.rounded-br-4xl {
+  border-bottom-right-radius: 2rem !important;
+}
+.rounded-br-5xl {
+  border-bottom-right-radius: 2.5rem !important;
+}
 * {
   font-size: 12px;
 }

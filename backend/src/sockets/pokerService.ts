@@ -228,6 +228,10 @@ export default class PokerService {
       );
       return;
     }
+    if (table?.type === "Turbo SNG" && table?.status !== "WAIT") {
+      this.sendMessage(socket, "error", "This tournament is already started");
+      return;
+    }
     if (table.getPosition(address) >= 0) {
       this.sendMessage(
         socket,

@@ -13,8 +13,10 @@
 // import { ReactComponent as SOL } from "../assets/svg/SOL.svg";
 // import { ReactComponent as EBONE } from "../assets/svg/EBONE.svg";
 import pic from "../assets/pic.png";
+import fold from "../assets/buttons/fold.png";
+import raise from "../assets/buttons/raise.png";
 
-export const images = { pic };
+export const images = { pic, fold, raise };
 
 export const initAvatar =
   "https://upcdn.io/W142hJk/image/demo/4mTLJiq7Ke.png?w=600&h=600&fit=max&q=70";

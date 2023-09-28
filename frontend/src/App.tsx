@@ -35,7 +35,7 @@ function App() {
                   <img
                     className="w-[50%] max-h-[75%] z-50"
                     src="/assets/rotate.gif"
-                  ></img>
+                  />
                   <div className="w-[80%] gradient-text text-[24px] text-center">
                     Please Rotate Your Phone For Better Experience
                   </div>

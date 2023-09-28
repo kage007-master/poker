@@ -401,7 +401,11 @@ export class Ring {
         order.pop();
       }
     }
-    for (let i = 0; i < 6; i++) players[i].status = oldStatus[i];
+    for (let i = 0; i < 6; i++) {
+      players[i].stack += players[i].totalBet;
+      earnings[i] += players[i].totalBet;
+      players[i].status = oldStatus[i];
+    }
     console.log("----------------- END --------------------");
     console.log(players.map((player) => player.stack));
     this.status = "OVER";

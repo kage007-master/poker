@@ -20,6 +20,7 @@ import { ReactComponent as Icon4 } from "assets/svg/wallet-icon-4.svg";
 import { RootState } from "store";
 
 Modal.setAppElement("body");
+
 const ModalWalletConnect = () => {
   const notify = useContext(ToastrContext);
   const isModalOpen = useSelector(
@@ -30,6 +31,16 @@ const ModalWalletConnect = () => {
   const commonProps = {
     nativeAuth: true, // optional
   };
+
+  const Item = (text: string, Icon: any) => {
+    return (
+      <div className="w-full flex justify-between items-center">
+        <p className="text-bright">{text}</p>
+        <Icon className="w-8" />
+      </div>
+    );
+  };
+
   useEffect(() => {
     if (isLogin) {
       dispatch(setWalletConnect(false));
@@ -47,7 +58,7 @@ const ModalWalletConnect = () => {
         className="modal-fade modal-content"
         overlayClassName="bg-[rgba(14,18,36,.7)] fixed w-full h-full top-0 left-0 backdrop-blur-xl z-50"
       >
-        <img src="/assets/ddog.png" className="mx-auto w-16 lg:w-20"></img>
+        <img src="/assets/ddog.png" className="mx-auto w-16 lg:w-20" />
         <h3 className="text-2xl lg:text-4xl text-bright mt-2">
           Connect your wallet
         </h3>
@@ -60,40 +71,28 @@ const ModalWalletConnect = () => {
             className="!py-0 lg:!py-1 btn"
             {...commonProps}
           >
-            <div className="w-full flex justify-between items-center">
-              <span className="text-bright">MultiversX DeFi Wallet</span>
-              <Icon1 className="w-8"></Icon1>
-            </div>
+            {Item("MultiversX DeFi Wallet", Icon1)}
           </ExtensionLoginButton>
           <WebWalletLoginButton
             loginButtonText="MultiversX Web Wallet"
             className="!py-0 lg:!py-1 btn"
             {...commonProps}
           >
-            <div className="w-full flex justify-between items-center">
-              <span className="text-bright">MultiversX Web Wallet</span>
-              <Icon2 className="w-8"></Icon2>
-            </div>
+            {Item("MultiversX Web Wallet", Icon2)}
           </WebWalletLoginButton>
           <LedgerLoginButton
             loginButtonText="Ledger"
             className="!py-0 lg:!py-1 btn"
             {...commonProps}
           >
-            <div className="w-full flex justify-between items-center">
-              <span className="text-bright">Ledger</span>
-              <Icon3 className="w-8"></Icon3>
-            </div>
+            {Item("Ledger", Icon3)}
           </LedgerLoginButton>
           <WalletConnectLoginButton
             loginButtonText="xPortal App"
             className="!py-0 lg:!py-1 btn"
             {...commonProps}
           >
-            <div className="w-full flex justify-between items-center">
-              <span className="text-bright">xPortal App</span>
-              <Icon4 className="w-8"></Icon4>
-            </div>
+            {Item("xPortal App", Icon4)}
           </WalletConnectLoginButton>
         </div>
       </Modal>

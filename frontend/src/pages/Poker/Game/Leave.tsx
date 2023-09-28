@@ -18,7 +18,7 @@ const Leave = () => {
   return (
     <div className="absolute top-[4%] right-[1.8%] z-10 w-[6%] cursor-pointer">
       <img
-        src="/assets/buttons/leave.png"
+        src="/assets/buttons/leave.svg"
         alt="btn"
         draggable={false}
         onClick={handleChat}

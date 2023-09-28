@@ -11,6 +11,7 @@ interface ModalState {
   screenshot: boolean;
   addchip: number;
   prize: boolean;
+  prizedata: any;
   //poker
 }
 
@@ -25,6 +26,7 @@ const initialState: ModalState = {
   screenshot: false,
   addchip: -1,
   prize: false,
+  prizedata: {},
 };
 
 export const slice = createSlice({
@@ -61,6 +63,9 @@ export const slice = createSlice({
     setPrize: (state, action) => {
       state.prize = action.payload;
     },
+    setPrizeData: (state, action) => {
+      state.prizedata = action.payload;
+    },
   },
 });
 
@@ -75,6 +80,7 @@ export const {
   setChat,
   setAddChip,
   setPrize,
+  setPrizeData,
 } = slice.actions;
 
 export default slice.reducer;

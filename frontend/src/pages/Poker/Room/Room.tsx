@@ -189,7 +189,7 @@ const Component = () => {
                     className="btn2 uppercase p-2"
                     onClick={() => onJoin(table.id)}
                   >
-                    <div className="btn3 p-1">
+                    <div className="btn-blue rounded-md p-1">
                       <p className="gradient-text text-tiny">Join</p>
                     </div>
                   </button>
@@ -202,21 +202,18 @@ const Component = () => {
       </div>
       <div className="absolute top-[4%] w-[30%] right-[1.8%] h-[10%] flex">
         <div className="w-[50%] flex items-center justify-center">
-          <img className="w-[20%]" src="/assets/users.png"></img>
+          <img className="w-[20%]" src="/assets/users.png" />
         </div>
         <div className="w-[50%] flex items-center justify-center">
-          <img className="w-[20%]" src="/assets/table.png"></img>
+          <img className="w-[20%]" src="/assets/table.png" />
         </div>
       </div>
       <div
         className="absolute top-[14%] w-[30%] right-[1.8%] h-[1.5%] bg-center bg-cover bg-no-repeat flex"
         style={{ backgroundImage: `url(/assets/bar.png)` }}
       >
-        <img src="/assets/bar-left.png" className="w-[50%] h-[90%]"></img>
-        <img
-          src="/assets/bar-right.png"
-          className="hidden w-[50%] h-[90%]"
-        ></img>
+        <img src="/assets/bar-left.png" className="w-[50%] h-[90%]" />
+        <img src="/assets/bar-right.png" className="hidden w-[50%] h-[90%]" />
       </div>
       <div className="absolute top-[16%] z-20 w-[30%] right-[1.8%] h-[78%] max-h-[78%]">
         <div className="usertable opacity-60 flex items-center uppercase h-[10%]">
@@ -236,7 +233,7 @@ const Component = () => {
                   <img
                     src={user.avatar}
                     className="border border-[#D4E9FF] rounded-full w-6 h-6 lg:w-8 lg:h-8"
-                  ></img>
+                  />
                 </div>
                 <div className="flex items-center justify-center gradient-text">
                   {index + 1}
