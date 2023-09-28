@@ -32,7 +32,7 @@ const BottomRightControllers = () => {
     setValue(tableInfo.minRaise);
   }, [tableInfo.minRaise]);
 
-  // if (!tableInfo.isTurn) return null;
+  if (!tableInfo.isTurn) return null;
 
   return (
     <>

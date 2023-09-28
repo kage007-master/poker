@@ -46,9 +46,8 @@ export default class PokerService {
       socket.on("enterRoom", (data) => this.enterRoom(socket, data));
       socket.on("enterTable", (data) => this.enterTable(socket, data));
       socket.on("takeSeat", (data) => this.takeSeat(socket, data));
-
       socket.on("leaveTable", (data) => this.leaveTable(socket, data));
-
+      socket.on("addchip", (data) => this.addchip(socket, data));
       socket.on("fold", (data) => this.fold(socket, data));
       socket.on("call", (data) => this.call(socket, data));
       socket.on("raise", (data) => this.raise(socket, data));
@@ -206,6 +205,44 @@ export default class PokerService {
     socket.join("room-" + id);
   };
 
+  addchip = async (socket: Socket, data: any) => {
+    const { address, tableId, chip } = data;
+    if (!address || typeof tableId == undefined || !this.tables[tableId]) {
+      this.sendMessage(socket, "error", "Invalid data");
+      return;
+    }
+    if (this.tables[tableId].type === "Turbo SNG") {
+      this.sendMessage(socket, "error", "You can't add chips on tournaments!");
+      return;
+    }
+    const pos = this.tables[tableId].getPosition(address);
+    if (pos === -1) {
+      this.sendMessage(socket, "error", "You didn't participate this table.");
+      return;
+    }
+    const user = await authController.getUser(address);
+    if (user) {
+      if (user.balance.ebone < chip) {
+        this.sendMessage(
+          socket,
+          "error",
+          `You don't have enough chips to add.`
+        );
+        return;
+      }
+      user.balance.ebone -= chip;
+      authController.updateUser(user);
+      if (this.tables[tableId].status === "WAIT")
+        this.tables[tableId].players[pos].stack += chip;
+      else this.tables[tableId].players[pos].addchip = chip;
+      this.sendMessage(
+        socket,
+        "tableInfo",
+        await this.tables[tableId].info(address)
+      );
+    }
+  };
+
   takeSeat = async (socket: Socket, data: any) => {
     const { address, tableId, position, buyIn } = data;
     if (
@@ -266,6 +303,7 @@ export default class PokerService {
           position: data.position,
           disconnect: false,
           leave: false,
+          addchip: 0,
         },
         data.position
       );

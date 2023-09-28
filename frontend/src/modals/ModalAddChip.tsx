@@ -78,6 +78,13 @@ const ModalAddChip = () => {
                       position: addchip,
                       buyIn: value,
                     });
+                  else {
+                    pokersocket.emit("addchip", {
+                      tableId: tableInfo.id,
+                      address,
+                      chip: value,
+                    });
+                  }
                   dispatch(setAddChip(-1));
                 }}
               >

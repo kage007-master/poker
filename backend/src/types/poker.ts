@@ -25,6 +25,7 @@ export interface IPlayer {
   position: number;
   cards: number[];
   prize?: number;
+  addchip: number;
   disconnect: boolean;
   leave: boolean;
 }

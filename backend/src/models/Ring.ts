@@ -403,6 +403,8 @@ export class Ring {
     }
     for (let i = 0; i < 6; i++) {
       players[i].stack += players[i].totalBet;
+      players[i].stack += players[i].addchip;
+      players[i].addchip = 0;
       earnings[i] += players[i].totalBet;
       players[i].status = oldStatus[i];
     }

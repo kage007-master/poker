@@ -94,6 +94,7 @@ export const nullPlayer = () => {
     cards: [],
     disconnect: true,
     leave: false,
+    addchip: 0,
   };
 };
 
