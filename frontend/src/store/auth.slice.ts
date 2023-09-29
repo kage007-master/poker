@@ -92,7 +92,6 @@ export const authSlice = createSlice({
       state.nfts = action.payload.map((item: any) => {
         return { name: item.identifier, url: item.url };
       });
-      console.log(state.nfts);
     });
     builder.addCase(getNfts.rejected, (state, action) => {});
   },

@@ -604,10 +604,6 @@ export class SNG {
   };
 
   broadcast(channel: string = "") {
-    // console.log(this.status, this.currentPlayerId);
-    // console.log(this.players.map((player) => player.status));
-    // console.log(this.players.map((player) => player.betAmount));
-
     this.server
       .in("room-" + this.id)
       .fetchSockets()
