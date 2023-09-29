@@ -4,6 +4,7 @@ const MediumCard = (props: any) => {
       <img
         className="absolute top-[5%] left-[10%] w-[28%]"
         src={`/assets/cards/${props.card.suit}.png`}
+        alt=""
       />
       <p className={`gradient-text-${props.card.suit} text-card font-[900]`}>
         {props.card.value}
@@ -11,6 +12,7 @@ const MediumCard = (props: any) => {
       <img
         className="absolute bottom-[5%] right-[10%] w-[28%]"
         src={`/assets/cards/${props.card.suit}.png`}
+        alt=""
       />
     </div>
   );

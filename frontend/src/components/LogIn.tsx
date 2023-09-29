@@ -1,5 +1,5 @@
 import { useEffect, useContext } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { setWalletConnect } from "../store/modal.slice";
 import {
   useGetAccountInfo,
@@ -9,7 +9,7 @@ import {
 import axios from "axios";
 import { setAuth } from "../store/auth.slice";
 import { ToastrContext } from "../providers/ToastrProvider";
-import { AppDispatch, RootState } from "../store";
+import { AppDispatch } from "../store";
 import env from "../config";
 
 const LogIn = () => {

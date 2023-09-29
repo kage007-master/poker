@@ -1,4 +1,4 @@
-import { useState, useContext, useEffect } from "react";
+import { useContext, useEffect } from "react";
 import { SocketContext } from "context/socket";
 import { useDispatch, useSelector } from "react-redux";
 import { setTableInfo } from "store/poker.slice";
