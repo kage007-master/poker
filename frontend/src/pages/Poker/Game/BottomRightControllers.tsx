@@ -50,14 +50,14 @@ const BottomRightControllers = () => {
           disabled={!tableInfo.isCheck}
           onClick={onCheck}
         >
-          <p className="gradient-text uppercase font-[700]">Check</p>
+          <p className="gradient-text text-tiny font-[700]">CHECK</p>
         </button>
         <button
           className={`btn4 rounded-2xl ${tableInfo.isCheck ? "disabled" : ""}`}
           disabled={tableInfo.isCheck}
           onClick={onCall}
         >
-          <p className="gradient-text uppercase font-[700]">Call</p>
+          <p className="gradient-text text-tiny font-[700]">CALL</p>
         </button>
         <button
           className="btn4 p-2 rounded-2xl rounded-br-5xl"

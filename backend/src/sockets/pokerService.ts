@@ -65,10 +65,13 @@ export default class PokerService {
 
       socket.on("reconnect", () => this.connect(socket, false));
       socket.on("disconnect", () => this.connect(socket, true));
-      socket.emit("HighHand", {
-        cards: this.hHands?.cards,
-        users: this.hHandUsers,
-      });
+
+      setTimeout(() => {
+        socket.emit("HighHand", {
+          cards: this.hHands?.cards,
+          users: this.hHandUsers,
+        });
+      }, 1000);
     });
   };
 
@@ -234,7 +237,7 @@ export default class PokerService {
       authController.updateUser(user);
       if (this.tables[tableId].status === "WAIT")
         this.tables[tableId].players[pos].stack += chip;
-      else this.tables[tableId].players[pos].addchip = chip;
+      else this.tables[tableId].players[pos].addchip += chip;
       this.sendMessage(
         socket,
         "tableInfo",

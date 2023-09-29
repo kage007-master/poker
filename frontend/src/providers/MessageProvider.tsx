@@ -11,8 +11,8 @@ const MessageProvider = () => {
 
   useEffect(() => {
     pokersocket.on("HighHand", (data: any) => {
-      dispatch(setHHand(data));
       console.log(data);
+      dispatch(setHHand(data));
     });
     pokersocket.on("message", (data: any) => {
       dispatch(newMessage({ ...data, me: data.address === address }));

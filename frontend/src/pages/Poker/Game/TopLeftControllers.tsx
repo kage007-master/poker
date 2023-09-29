@@ -1,3 +1,4 @@
+import { MediumCard } from "components/Cards";
 import { ToastrContext } from "providers/ToastrProvider";
 import { useContext, useEffect, useRef, useState } from "react";
 import { useSelector } from "react-redux";
@@ -81,13 +82,9 @@ const HighHandModal = () => {
       <div className="flex flex-col gap-2 lg:gap-4 items-center backdrop-blur-lg bg-gradient-to-br from-[#444B6B]/[.5] to-[#5A6B8C]/[.5] w-full py-3 lg:py-4">
         <p className="font-[600] text-[#D5E9FF]">High Hand</p>
         {cards && (
-          <div className="px-3 grid gap-1 grid-cols-[repeat(5,_minmax(0,_auto))]">
+          <div className="px-3 grid gap-1 grid-cols-5 w-full">
             {cards.map((card: any, index: number) => (
-              <img
-                key={index}
-                src={`/assets/cards/medium/${card.value + card.suit}.png`}
-                alt=""
-              />
+              <MediumCard key={index} card={card} />
             ))}
           </div>
         )}
@@ -168,8 +165,8 @@ const TopLeftControllers = () => {
           className="cursor-pointer rounded-br-full"
           src={
             mOpen
-              ? "/assets/buttons/left-top/menu_btn_open.png"
-              : "/assets/buttons/left-top/menu_btn.png"
+              ? "/assets/buttons/left-top/menu_btn_open.svg"
+              : "/assets/buttons/left-top/menu_btn.svg"
           }
           alt="btn"
           draggable={false}

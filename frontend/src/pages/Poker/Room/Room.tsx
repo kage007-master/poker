@@ -168,8 +168,8 @@ const Component = () => {
                   )}
                 </div>
                 <div
-                  className={`gradient-text${
-                    table.type === "Ring Game" ? 1 : 2
+                  className={`gradient-text-${
+                    table.type === "Ring Game" ? "h" : "d"
                   }`}
                 >
                   {table.type}

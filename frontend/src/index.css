@@ -29,18 +29,6 @@
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
-.gradient-text1 {
-  text-shadow: 2px 2px 3px rgba(64, 71, 105, 0.24);
-  background: radial-gradient(100% 100% at 0% 0%, #fff 0%, #e04a70 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-.gradient-text2 {
-  text-shadow: 2px 2px 3px rgba(64, 71, 105, 0.24);
-  background: radial-gradient(100% 100% at 0% 0%, #fff 0%, #20ace0 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
 
 .text-shadow {
   text-shadow: 1px 1px 1px rgba(255, 255, 255, 0.5),
@@ -303,7 +291,9 @@
 .text-huge {
   font-size: 16px;
 }
-
+.text-card {
+  font-size: 28px;
+}
 .pic-huge {
   height: 16px;
 }
@@ -328,6 +318,9 @@
   .text-huge {
     font-size: 18px;
   }
+  .text-card {
+    font-size: 32px;
+  }
   .pic-huge {
     height: 18px;
   }
@@ -349,6 +342,9 @@
   .text-huge {
     font-size: 20px;
   }
+  .text-card {
+    font-size: 36px;
+  }
   .pic-huge {
     height: 20px;
   }
@@ -367,18 +363,62 @@
   .text-huge {
     font-size: 24px;
   }
+  .text-card {
+    font-size: 40px;
+  }
   .pic-huge {
     height: 24px;
   }
 }
 
 .card-bg {
-  border-radius: 12px;
+  border-radius: 8px;
   background: radial-gradient(
     234.01% 141.42% at 0% 100%,
-    #627899 0%,
-    #454c6f 100%
+    #7791ba 0%,
+    #4d557c 100%
   );
-  box-shadow: 2px 2px 6px 0px rgba(136, 158, 191, 0.16) inset,
-    3px 3px 3px 0px rgba(52, 61, 92, 0.12);
+  box-shadow: 2px 2px 2px 0px rgba(136, 158, 191, 0.16) inset,
+    2px 2px 2px 0px rgba(52, 61, 92, 0.22);
+}
+
+.gradient-text-h {
+  background: radial-gradient(
+    123.11% 141.42% at 0% 0%,
+    #ffc5b8 0%,
+    #db3297 100%
+  );
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.gradient-text-c {
+  background: radial-gradient(
+    123.11% 141.42% at 0% 0%,
+    #d6a3ff 0%,
+    #5b21ff 100%
+  );
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.gradient-text-s {
+  background: radial-gradient(
+    123.11% 141.42% at 0% 0%,
+    #83bcff 0%,
+    #4945ff 100%
+  );
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.gradient-text-d {
+  background: radial-gradient(
+    123.11% 141.42% at 0% 0%,
+    #6bf6ff 0%,
+    #1f6bff 100%
+  );
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }

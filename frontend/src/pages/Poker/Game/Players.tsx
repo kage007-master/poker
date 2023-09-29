@@ -252,7 +252,7 @@ const Players = () => {
 
                 {(player.status == "FOLD" || player.status == "CHECK") && (
                   <div className="absolute -bottom-[1.5%] fold w-full px-[1%] py-[10%] rounded-b-xl lg:rounded-b-2xl rounded-t-xl">
-                    <p className="text-[#F5FAFF] font-[700] text-center">
+                    <p className="text-[#F5FAFF] text-tiny text-center">
                       {player.status}
                     </p>
                   </div>

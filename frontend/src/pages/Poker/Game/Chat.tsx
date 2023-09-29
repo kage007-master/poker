@@ -107,8 +107,8 @@ const Chat = () => {
         className={"cursor-pointer"}
         src={
           chatOpen
-            ? "/assets/buttons/left-bottom/chat_btn_open.png"
-            : "/assets/buttons/left-bottom/chat_btn.png"
+            ? "/assets/buttons/left-bottom/chat_btn_open.svg"
+            : "/assets/buttons/left-bottom/chat_btn.svg"
         }
         alt="btn"
         draggable={false}
