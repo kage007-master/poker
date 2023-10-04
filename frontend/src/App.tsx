@@ -50,13 +50,13 @@ function App() {
                       draggable={false}
                     />
                     <Routes>
-                      <Route path="/" element={<PokerRooms />}></Route>
-                      <Route path="/game/:id" element={<PokerGame />}></Route>
+                      <Route path="/" element={<PokerRooms />} />
+                      <Route path="/game/:id" element={<PokerGame />} />
                     </Routes>
                   </div>
                 </div>
               </div>
-              <Modals></Modals>
+              <Modals />
               <LogIn />
             </BrowserRouter>
           </SocketContext.Provider>
