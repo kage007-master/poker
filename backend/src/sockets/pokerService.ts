@@ -53,6 +53,7 @@ export default class PokerService {
       socket.on("raise", (data) => this.raise(socket, data));
       socket.on("check", (data) => this.check(socket, data));
       socket.on("allIn", (data) => this.allIn(socket, data));
+      socket.on("straddle", (data) => this.straddle(socket, data));
 
       socket.on("message", (data: any) => {
         const newMessage = {
@@ -326,6 +327,10 @@ export default class PokerService {
     return data;
   };
 
+  straddle = async (socket: Socket, data: any) => {
+    this.tables[data.id].straddle();
+  };
+  
   // table actions
   check = async (socket: Socket, data: any) => {
     this.tables[data.id].check();
@@ -334,6 +339,7 @@ export default class PokerService {
   fold = async (socket: Socket, data: any) => {
     this.tables[data.id].fold();
   };
+  
 
   call = async (socket: Socket, data: any) => {
     this.tables[data.id].call();

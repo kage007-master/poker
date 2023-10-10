@@ -165,7 +165,6 @@ export class Ring {
     this.cards = shuffledCards();
     if (this.lastNewPlayerId != -1) this.dealerId = this.lastNewPlayerId;
     this.dealerId = nextActivePlayerId(this.dealerId, this.players);
-    //    this.SBId = nextActivePlayerId(this.dealerId, this.players);
     this.lastNewPlayerId = -1;
     this.preflop();
   }
@@ -271,7 +270,6 @@ export class Ring {
             this.countdown = COUNT_DOWN + 1;
             this.tick();
           } else {
-            this.status = "IDLE";
             this.countdown = 4;
             this.tick1();
             console.log("---WAITING FOR STRADDLE----");
@@ -463,7 +461,15 @@ export class Ring {
       }
   }
 
-  straddle() {}
+  straddle() {
+    this.status = "STRADDLED";
+    this.SBId = this.currentPlayerId;
+    this.players[this.currentPlayerId].status = "STRADDLED";
+    this.currentBet = this.bigBlind * 2;
+    this.stake(this.bigBlind * 2);
+    this.deliver();
+    this.moveTurn();
+  }
 
   call() {
     console.log("call on", this.id);
@@ -593,7 +599,6 @@ export class Ring {
   tick = async () => {
     this.countdown--;
     this.broadcast();
-    // console.log(this.countdown);
     if (this.status == "IDLE") {
       if (this.countdown < 0) this.fold();
       else setTimeout(this.tick, 1000);
@@ -603,7 +608,7 @@ export class Ring {
   tick1 = async () => {
     this.countdown--;
     this.broadcast();
-    if (this.status == "IDLE") {
+    if (this.status == "STRADDLE") {
       if (this.countdown < 0) {
         this.deliver();
         this.countdown = COUNT_DOWN + 1;

@@ -84,8 +84,18 @@ const Players = () => {
       else dispatch(setAddChip(position));
     }
   };
+
+  const onStraddle = () => {
+    pokersocket.emit("check", { id });
+  };
+
   return (
     <>
+      {tableInfo.isTurn && tableInfo.status === "STRADDLE" && (
+        <button className="z-50" onClick={onStraddle}>
+          Straddle
+        </button>
+      )}
       {tableInfo.players &&
         tableInfo.players.map((player: any, index: number) => {
           return (
@@ -190,7 +200,7 @@ const Players = () => {
                 />
               ))}
 
-              {index == tableInfo.dealerId && (
+              {index === tableInfo.dealerId && (
                 <div
                   className={
                     "absolute z-30 w-[5%]" + buttonPositionClasses[index]
@@ -203,7 +213,7 @@ const Players = () => {
                   <img src="/assets/buttons/D.png" alt="" />
                 </div>
               )}
-              {index == tableInfo.SBId && (
+              {index === tableInfo.SBId && (
                 <div
                   className={
                     "absolute z-30 w-[5%]" + buttonPositionClasses[index]

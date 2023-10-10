@@ -456,6 +456,8 @@ export class SNG {
     }, ANIMATION_DELAY_TIME);
   }
 
+  straddle() {}
+  
   call() {
     console.log("call on", this.id);
     this.status = "CALL";

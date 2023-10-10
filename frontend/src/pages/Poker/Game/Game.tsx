@@ -74,7 +74,7 @@ const Component = () => {
       <Leave />
       <AddChip />
       <BottomRightControllers />
-      {tableInfo.status === "IDLE" ? (
+      {tableInfo.status === "IDLE" || tableInfo.status === "STRADDLE" ? (
         <div className="absolute z-30 bottom-[6%] left-[30%] w-[5%]">
           <div className="flex justify-center items-center relative">
             <GradientSVG />
