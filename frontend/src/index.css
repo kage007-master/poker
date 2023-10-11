@@ -64,8 +64,7 @@
 
 .custom-range::-webkit-slider-thumb {
   -webkit-appearance: none;
-  width: 8%;
-  min-width: 12px;
+  width: 10px;
   height: 400%;
   position: relative;
   top: -150%;
@@ -306,6 +305,9 @@
   .custom-range {
     height: 6px;
   }
+  .custom-range::-webkit-slider-thumb {
+    width: 15px;
+  }
   * {
     font-size: 14px;
   }
@@ -329,6 +331,9 @@
 @media screen and (min-width: 1280px) {
   .custom-range {
     height: 8px;
+  }
+  .custom-range::-webkit-slider-thumb {
+    width: 20px;
   }
   * {
     font-size: 16px;

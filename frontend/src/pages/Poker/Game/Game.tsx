@@ -61,7 +61,7 @@ const Component = () => {
         </div>
       )}
       {tableInfo.playingTime > 0 && (
-        <div className="absolute z-30 gradient-text top-[2%]">
+        <div className="absolute z-30 gradient-text top-[4%] right-[8%]">
           {`Next Level: ${tableInfo.smallBlind * 2}/${
             tableInfo.bigBlind * 2
           }(${Math.floor((300 - (tableInfo.playingTime % 300)) / 60)}:${

@@ -31,7 +31,7 @@ export const Slice = createSlice({
         (player: any) => address && player.address === address
       );
       state.tableInfo.isMember = me != -1;
-      state.tableInfo.isTurn = me != -1 && data.players[me].status == "ACTIVE";
+      state.tableInfo.isTurn = me != -1 && data.players[me].status === "ACTIVE";
       if (state.tableInfo.isTurn)
         state.tableInfo.isCheck =
           state.tableInfo.currentBet === data.players[me].betAmount;

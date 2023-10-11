@@ -457,7 +457,8 @@ export class SNG {
   }
 
   straddle() {}
-  
+  runTwice(addr: string) {}
+
   call() {
     console.log("call on", this.id);
     this.status = "CALL";

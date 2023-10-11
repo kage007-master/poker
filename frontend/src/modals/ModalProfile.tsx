@@ -119,9 +119,9 @@ const ModalProfile = () => {
           </div>
         </div>
         <div className="flex justify-center items-center bg-gradient-to-br from-[#505880] to-[#667AA0] min-h-[70px]">
-          <button className="btn2 uppercase p-2" onClick={handleProfile}>
+          <button className="btn2 p-2" onClick={handleProfile}>
             <div className="btn-blue rounded-md py-1 px-8">
-              <p className="gradient-text">Save</p>
+              <p className="gradient-text">SAVE</p>
             </div>
           </button>
         </div>

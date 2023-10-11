@@ -50,12 +50,14 @@ export class Ring {
   timestamp!: number;
   status: string = "WAIT";
   isLockup: boolean = false;
+  isRunTwice: boolean = false;
   leaveList: number[] = [];
   plusBet: number = 0; // for last action (currentBet - player.betAmount)
   prizes: number[] = [];
   lastNewPlayerId: number = -1;
   disconnectList: Socket[] = [];
   parent: any;
+  runTwiceUsers: string[] = [];
 
   constructor(
     server: Server,
@@ -86,6 +88,8 @@ export class Ring {
     this.SBId = -1;
     this.pot = 0;
     this.isLockup = false;
+    this.isRunTwice = false;
+    this.runTwiceUsers = [];
     this.minRaise = this.bigBlind * 2;
     for (let i = 0; i < 6; i++) {
       if (isValid(this.players[i])) {
@@ -194,7 +198,7 @@ export class Ring {
 
   moveTurn() {
     this.countdown = COUNT_DOWN;
-    this.broadcast();
+    if (this.status !== "STRADDLE") this.broadcast();
     setTimeout(() => {
       if (!numberOfActivePlayers(this.players))
         console.log("what a bug on", this.id);
@@ -232,12 +236,15 @@ export class Ring {
             break;
         }
         if (roundResult == "LOCKUP" && this.round < Round.OVER) {
-          console.log("locked up on", this.id);
-          this.isLockup = true;
-          setTimeout(() => {
+          if (!this.isLockup) {
+            this.status = "MOCKUP";
+            this.countdown = 4;
+            this.tick2();
+          } else {
             this.updatePlayers();
             this.moveTurn();
-          }, ANIMATION_DELAY_TIME);
+          }
+          this.isLockup = true;
         } else if (
           this.round < Round.OVER &&
           numberOfActivePlayers(this.players)
@@ -270,7 +277,7 @@ export class Ring {
             this.countdown = COUNT_DOWN + 1;
             this.tick();
           } else {
-            this.countdown = 4;
+            this.countdown = 1000;
             this.tick1();
             console.log("---WAITING FOR STRADDLE----");
           }
@@ -311,18 +318,25 @@ export class Ring {
     this.communityCards[0].push(this.cards.pop() ?? 0);
     this.communityCards[1].push(this.cards.pop() ?? 0);
     this.communityCards[2].push(this.cards.pop() ?? 0);
+    if (this.isRunTwice) {
+      this.communityCards[0].push(this.cards.pop() ?? 0);
+      this.communityCards[1].push(this.cards.pop() ?? 0);
+      this.communityCards[2].push(this.cards.pop() ?? 0);
+    }
     this.broadcast();
   }
 
   turn() {
     this.status = "TURN";
     this.communityCards[3].push(this.cards.pop() ?? 0);
+    if (this.isRunTwice) this.communityCards[3].push(this.cards.pop() ?? 0);
     this.broadcast();
   }
 
   river() {
     this.status = "RIVER";
     this.communityCards[4].push(this.cards.pop() ?? 0);
+    if (this.isRunTwice) this.communityCards[4].push(this.cards.pop() ?? 0);
     this.broadcast();
   }
 
@@ -471,6 +485,8 @@ export class Ring {
     this.moveTurn();
   }
 
+  runTwice(addr: string) {}
+
   call() {
     console.log("call on", this.id);
     this.status = "CALL";
@@ -566,7 +582,8 @@ export class Ring {
       if (isActive(player)) {
         if (index != this.currentPlayerId || this.isLockup)
           player.status = "IDLE";
-        else if (this.status == "IDLE") player.status = "ACTIVE";
+        else if (this.status == "IDLE" || this.status == "STRADDLE")
+          player.status = "ACTIVE";
         else if (
           player.status.includes("BLIND") ||
           player.status == "CALL" ||
@@ -610,10 +627,22 @@ export class Ring {
     this.broadcast();
     if (this.status == "STRADDLE") {
       if (this.countdown < 0) {
+        this.status = "IDLE";
         this.deliver();
         this.countdown = COUNT_DOWN + 1;
         this.tick();
       } else setTimeout(this.tick1, 1000);
+    }
+  };
+
+  tick2 = async () => {
+    this.countdown--;
+    this.broadcast();
+    if (this.status == "MOCKUP") {
+      if (this.countdown < 0) {
+        this.updatePlayers();
+        this.moveTurn();
+      } else setTimeout(this.tick2, 1000);
     }
   };
 

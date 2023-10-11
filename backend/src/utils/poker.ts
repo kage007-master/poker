@@ -95,6 +95,7 @@ export const nullPlayer = () => {
     disconnect: true,
     leave: false,
     addchip: 0,
+    auto: "",
   };
 };
 

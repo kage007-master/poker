@@ -31,7 +31,7 @@ function App() {
                 className="w-screen h-screen bg-center bg-cover bg-no-repeat overflow-hidden"
                 style={{ backgroundImage: `url(/assets/background.svg)` }}
               >
-                <div className="flex md:hidden justify-center flex-col items-center w-full h-full">
+                <div className="flex sm:hidden justify-center flex-col items-center w-full h-full">
                   <img
                     className="w-[50%] max-h-[75%] z-50"
                     src="/assets/rotate.gif"

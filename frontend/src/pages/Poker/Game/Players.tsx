@@ -86,14 +86,16 @@ const Players = () => {
   };
 
   const onStraddle = () => {
-    pokersocket.emit("check", { id });
+    pokersocket.emit("straddle", { id });
   };
 
   return (
     <>
       {tableInfo.isTurn && tableInfo.status === "STRADDLE" && (
-        <button className="z-50" onClick={onStraddle}>
-          Straddle
+        <button className="z-50 btn2 p-2" onClick={onStraddle}>
+          <div className="btn-blue rounded-md py-1 px-8">
+            <p className="gradient-text">Straddle</p>
+          </div>
         </button>
       )}
       {tableInfo.players &&
