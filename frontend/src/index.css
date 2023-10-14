@@ -431,8 +431,9 @@
 .pressed {
   background: radial-gradient(
     141.42% 141.42% at 100% 0%,
-    #e8673e 71.35%
-  ) !important;
+    #e8673e 0%,
+    #e8673e 100%
+  );
   box-shadow: 4px 4px 24px 0px rgba(137, 153, 180, 0.24) inset,
     -4px -4px 16px 0px rgba(44, 51, 82, 0.88) inset,
     2px 2px 2px 0px rgba(104, 115, 159, 0.16) inset;
