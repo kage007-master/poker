@@ -98,6 +98,7 @@ export class SNG {
         this.players[i].betAmount = 0;
         this.players[i].totalBet = 0;
         this.players[i].status = "NONE";
+        this.players[i].auto = "";
       }
     }
     this.communityCards = [[], [], [], [], []];

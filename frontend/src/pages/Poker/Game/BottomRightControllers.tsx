@@ -59,15 +59,21 @@ const BottomRightControllers = () => {
         <button
           className={`btn4 rounded-2xl ${
             !tableInfo.isCheck ? "disabled" : ""
-          } ${tableInfo.players[0].auto === "check" ? "pressed" : ""}`}
+          } ${
+            tableInfo.isCheck && tableInfo.players[0].auto === "check"
+              ? "pressed"
+              : ""
+          }`}
           disabled={!tableInfo.isCheck}
           onClick={onCheck}
         >
           <p className="gradient-text text-tiny font-[700]">CHECK</p>
         </button>
         <button
-          className={`btn4 rounded-2xl ${tableInfo.isCheck ? "disabled" : ""} ${
-            tableInfo.players[0].auto === "call" ? "pressed" : ""
+          className={`btn4 rounded-2xl ${!tableInfo.isCall ? "disabled" : ""} ${
+            tableInfo.isCall && tableInfo.players[0].auto === "call"
+              ? "pressed"
+              : ""
           }`}
           disabled={!tableInfo.isCall}
           onClick={onCall}
