@@ -37,7 +37,7 @@ export const Slice = createSlice({
           state.tableInfo.currentBet === data.players[me].betAmount;
         state.tableInfo.isCall =
           !state.tableInfo.isCheck &&
-          data.players[me].stack >=
+          data.players[me].stack >
             state.tableInfo.currentBet - data.players[me].betAmount;
       }
 

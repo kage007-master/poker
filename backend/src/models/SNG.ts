@@ -462,22 +462,21 @@ export class SNG {
 
   auto(addr: string, type: string) {
     for (var i = 0; i < 6; i++) {
+      if (this.players[i].address != addr) continue;
       if (this.players[i].auto === type) this.players[i].auto = "";
       else this.players[i].auto = type;
     }
   }
 
   call() {
-    console.log("call on", this.id);
-    this.status = "CALL";
     let player = this.players[this.currentPlayerId];
-    player.status = "CALL";
+    if (this.currentBet >= player.stack + player.betAmount) return;
+    this.status = player.status = "CALL";
     this.stake(this.currentBet - player.betAmount);
     this.moveTurn();
   }
 
   fold() {
-    console.log("fold on", this.id);
     this.status = "FOLD";
     let player = this.players[this.currentPlayerId];
     player.status = "FOLD";
@@ -485,19 +484,16 @@ export class SNG {
   }
 
   check() {
-    console.log("check on", this.id);
-    this.status = "CHECK";
     let player = this.players[this.currentPlayerId];
-    player.status = "CHECK";
+    if (player.betAmount !== this.currentBet) return;
+    this.status = player.status = "CHECK";
     this.moveTurn();
   }
 
   allIn() {
-    console.log("allin on", this.id);
-    this.status = "ALLIN";
     let player = this.players[this.currentPlayerId];
-    player.status = "ALLIN";
-    if (player.stack > this.currentBet) {
+    this.status = player.status = "ALLIN";
+    if (player.stack + player.betAmount > this.currentBet) {
       this.minRaise = player.stack + player.stack - this.currentBet;
       this.currentBet = player.stack;
     }
@@ -506,9 +502,12 @@ export class SNG {
   }
 
   raise(amount: number) {
-    this.status = "RAISE";
     let player = this.players[this.currentPlayerId];
-    player.status = "RAISE";
+    if (player.stack + player.betAmount <= amount) {
+      this.allIn();
+      return;
+    }
+    this.status = player.status = "RAISE";
     if (this.currentBet === 0) this.minRaise = amount + amount;
     else
       this.minRaise =
@@ -594,6 +593,12 @@ export class SNG {
     this.countdown--;
     this.broadcast();
     if (this.status == "IDLE") {
+      if (this.players[this.currentPlayerId].auto === "fold") this.fold();
+      else if (this.players[this.currentPlayerId].auto === "check")
+        this.check();
+      else if (this.players[this.currentPlayerId].auto === "call") this.call();
+      else if (this.players[this.currentPlayerId].auto === "raise")
+        this.raise(this.minRaise);
       if (this.countdown < 0) this.fold();
       else setTimeout(this.tick, 1000);
     }
