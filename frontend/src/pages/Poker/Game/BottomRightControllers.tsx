@@ -12,25 +12,33 @@ const BottomRightControllers = () => {
   const { tableInfo } = useSelector((state: RootState) => state.poker);
   const [value, setValue] = useState(tableInfo.minRaise);
   const onFold = () => {
-    pokersocket.emit("fold", { id, address });
+    if (tableInfo.isTurn) pokersocket.emit("fold", { id, address });
+    else pokersocket.emit("auto", { id, address, type: "fold" });
   };
   const onCheck = () => {
-    if (tableInfo.isTurn && tableInfo.isCheck)
-      pokersocket.emit("check", { id, address });
+    if (!tableInfo.isCheck) return;
+    if (tableInfo.isTurn) pokersocket.emit("check", { id, address });
+    else pokersocket.emit("auto", { id, address, type: "check" });
   };
   const onCall = () => {
-    if (tableInfo.isTurn && !tableInfo.isCheck)
-      pokersocket.emit("call", { id, address });
+    if (!tableInfo.isCall) return;
+    if (tableInfo.isTurn) pokersocket.emit("call", { id, address });
+    else pokersocket.emit("auto", { id, address, type: "call" });
   };
   const onRaise = () => {
-    pokersocket.emit("raise", { id, amount: value });
+    if (tableInfo.isTurn) pokersocket.emit("raise", { id, amount: value });
+    else pokersocket.emit("auto", { id, address, type: "raise" });
   };
 
   useEffect(() => {
     setValue(tableInfo.minRaise);
   }, [tableInfo.minRaise]);
 
-  if (!tableInfo.isMember || tableInfo.players[0].status === "JOIN")
+  if (
+    !tableInfo.isMember ||
+    tableInfo.players[0].status === "FOLD" ||
+    tableInfo.players[0].status === "JOIN"
+  )
     return null;
 
   return (
@@ -40,20 +48,28 @@ const BottomRightControllers = () => {
           className="btn4 p-2 rounded-2xl rounded-tl-5xl"
           onClick={onFold}
         >
-          <div className="h-full btn-red rounded-xl rounded-tl-4xl flex items-center justify-center">
+          <div
+            className={`h-full btn-red rounded-xl rounded-tl-4xl flex items-center justify-center ${
+              tableInfo.players[0].auto === "fold" ? "pressed" : ""
+            }`}
+          >
             <img className="pic-huge" src={images.fold} />
           </div>
         </button>
         <button
-          className={`btn4 rounded-2xl ${!tableInfo.isCheck ? "disabled" : ""}`}
+          className={`btn4 rounded-2xl ${
+            !tableInfo.isCheck ? "disabled" : ""
+          } ${tableInfo.players[0].auto === "check" ? "pressed" : ""}`}
           disabled={!tableInfo.isCheck}
           onClick={onCheck}
         >
           <p className="gradient-text text-tiny font-[700]">CHECK</p>
         </button>
         <button
-          className={`btn4 rounded-2xl ${tableInfo.isCheck ? "disabled" : ""}`}
-          disabled={tableInfo.isCheck}
+          className={`btn4 rounded-2xl ${tableInfo.isCheck ? "disabled" : ""} ${
+            tableInfo.players[0].auto === "call" ? "pressed" : ""
+          }`}
+          disabled={!tableInfo.isCall}
           onClick={onCall}
         >
           <p className="gradient-text text-tiny font-[700]">CALL</p>
@@ -62,7 +78,11 @@ const BottomRightControllers = () => {
           className="btn4 p-2 rounded-2xl rounded-br-5xl"
           onClick={onRaise}
         >
-          <div className="h-full btn-blue rounded-xl rounded-br-4xl flex items-center justify-center">
+          <div
+            className={`h-full btn-blue rounded-xl rounded-br-4xl flex items-center justify-center ${
+              tableInfo.players[0].auto === "raise" ? "pressed" : ""
+            }`}
+          >
             <img className="pic-huge" src={images.raise} />
           </div>
         </button>

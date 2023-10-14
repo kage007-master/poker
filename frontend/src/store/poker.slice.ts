@@ -32,9 +32,14 @@ export const Slice = createSlice({
       );
       state.tableInfo.isMember = me != -1;
       state.tableInfo.isTurn = me != -1 && data.players[me].status === "ACTIVE";
-      if (state.tableInfo.isTurn)
+      if (me != -1) {
         state.tableInfo.isCheck =
           state.tableInfo.currentBet === data.players[me].betAmount;
+        state.tableInfo.isCall =
+          !state.tableInfo.isCheck &&
+          data.players[me].stack >=
+            state.tableInfo.currentBet - data.players[me].betAmount;
+      }
 
       if (me >= 1) {
         state.tableInfo.players.splice(

@@ -457,7 +457,15 @@ export class SNG {
   }
 
   straddle() {}
+
   runTwice(addr: string) {}
+
+  auto(addr: string, type: string) {
+    for (var i = 0; i < 6; i++) {
+      if (this.players[i].auto === type) this.players[i].auto = "";
+      else this.players[i].auto = type;
+    }
+  }
 
   call() {
     console.log("call on", this.id);

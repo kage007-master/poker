@@ -55,6 +55,7 @@ export default class PokerService {
       socket.on("allIn", (data) => this.allIn(socket, data));
       socket.on("straddle", (data) => this.straddle(socket, data));
       socket.on("runTwice", (data) => this.runTwice(socket, data));
+      socket.on("auto", (data) => this.auto(socket, data));
 
       socket.on("message", (data: any) => {
         const newMessage = {
@@ -309,6 +310,7 @@ export default class PokerService {
           disconnect: false,
           leave: false,
           addchip: 0,
+          auto: "",
         },
         data.position
       );
@@ -334,6 +336,10 @@ export default class PokerService {
 
   runTwice = async (socket: Socket, data: any) => {
     this.tables[data.id].runTwice(data.address);
+  };
+
+  auto = async (socket: Socket, data: any) => {
+    this.tables[data.id].auto(data.address, data.type);
   };
 
   // table actions

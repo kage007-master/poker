@@ -28,4 +28,5 @@ export interface IPlayer {
   addchip: number;
   disconnect: boolean;
   leave: boolean;
+  auto: string;
 }
