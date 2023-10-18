@@ -1,5 +1,5 @@
 import { SocketContext } from "context/socket";
-import { useContext, useState } from "react";
+import { useContext } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import { RootState } from "store";
@@ -12,7 +12,7 @@ const Leave = () => {
   const { tableInfo } = useSelector((state: RootState) => state.poker);
   const handleChat = () => {
     pokersocket.emit("leaveTable", { id, address });
-    if (tableInfo.status === "WAIT") navigate("/");
+    navigate("/");
   };
 
   return (

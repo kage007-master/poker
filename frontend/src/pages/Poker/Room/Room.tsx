@@ -148,55 +148,60 @@ const Component = () => {
         </div>
         <div className="h-[88%] max-h-[88%] overflow-auto">
           {rooms.map((table: any, id) => (
-            <div key={id} className="h-[17%]">
-              <div className="roomtable flex items-center h-full-2 border-b-2 border-[#495577]">
-                <div className="flex items-center gradient-text">
-                  <img src={images.pic} className="pic px-[2%]" />
-                  {numberToSTR(table.smallBlind) + "/"}
-                  <img src={images.pic} className="pic px-[2%]" />
-                  {numberToSTR(table.bigBlind)}
-                </div>
-                <div className="flex items-center gradient-text">
-                  <img src={images.pic} className="pic px-[2%]" />
-                  {numberToSTR(table.BuyIn)}
-                  {table.type === "Ring Game" && (
-                    <>
-                      /
+            <>
+              {table.status !== "FINISHED" && (
+                <div key={id} className="h-[17%]">
+                  <div className="roomtable flex items-center h-full-2 border-b-2 border-[#495577]">
+                    <div className="flex items-center gradient-text">
                       <img src={images.pic} className="pic px-[2%]" />
-                      {numberToSTR(table.maxBuyIn)}
-                    </>
-                  )}
-                </div>
-                <div
-                  className={`gradient-text-${
-                    table.type === "Ring Game" ? "h" : "d"
-                  }`}
-                >
-                  {table.type}
-                </div>
-                <div className="flex items-center gradient-text">
-                  <SvgTable className="w-6 h-6 lg:w-8 lg:h-8"></SvgTable>
-                  {table.tableCnts}
-                </div>
-                <div className="flex items-center gradient-text">
-                  <SvgUser className="w-6 h-6 lg:w-8 lg:h-8"></SvgUser>
-                  {table.playerCnt}
-                </div>
-                {table.type === "Turbo SNG" && table.status === "FINISHED" ? (
-                  <div className="gradient-text">{table.status}</div>
-                ) : (
-                  <button
-                    className="btn2 uppercase p-2"
-                    onClick={() => onJoin(table.id)}
-                  >
-                    <div className="btn-blue rounded-md p-1">
-                      <p className="gradient-text text-tiny">Join</p>
+                      {numberToSTR(table.smallBlind) + "/"}
+                      <img src={images.pic} className="pic px-[2%]" />
+                      {numberToSTR(table.bigBlind)}
                     </div>
-                  </button>
-                )}
-              </div>
-              <div className="border-y-[1px] border-[#6980A3] w-f-4"></div>
-            </div>
+                    <div className="flex items-center gradient-text">
+                      <img src={images.pic} className="pic px-[2%]" />
+                      {numberToSTR(table.BuyIn)}
+                      {table.type === "Ring Game" && (
+                        <>
+                          /
+                          <img src={images.pic} className="pic px-[2%]" />
+                          {numberToSTR(table.maxBuyIn)}
+                        </>
+                      )}
+                    </div>
+                    <div
+                      className={`gradient-text-${
+                        table.type === "Ring Game" ? "h" : "d"
+                      }`}
+                    >
+                      {table.type}
+                    </div>
+                    <div className="flex items-center gradient-text">
+                      <SvgTable className="w-6 h-6 lg:w-8 lg:h-8"></SvgTable>
+                      {table.tableCnts}
+                    </div>
+                    <div className="flex items-center gradient-text">
+                      <SvgUser className="w-6 h-6 lg:w-8 lg:h-8"></SvgUser>
+                      {table.playerCnt}
+                    </div>
+                    {table.type === "Turbo SNG" &&
+                    table.status === "FINISHED" ? (
+                      <div className="gradient-text">{table.status}</div>
+                    ) : (
+                      <button
+                        className="btn2 uppercase p-2"
+                        onClick={() => onJoin(table.id)}
+                      >
+                        <div className="btn-blue rounded-md p-1">
+                          <p className="gradient-text text-tiny">Join</p>
+                        </div>
+                      </button>
+                    )}
+                  </div>
+                  <div className="border-y-[1px] border-[#6980A3] w-f-4"></div>
+                </div>
+              )}
+            </>
           ))}
         </div>
       </div>

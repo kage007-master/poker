@@ -30,14 +30,16 @@ export default class PokerService {
   constructor(io: Server) {
     this.io = io;
     this.buildConnection();
-    this.createRoom({ smallBlind: 1, bigBlind: 2 });
+    // this.createRoom({ smallBlind: 1, bigBlind: 2 });
+    // this.createRoom({ smallBlind: 2, bigBlind: 5 });
+    // this.createRoom({ smallBlind: 4, bigBlind: 8 });
+    // this.createRoom({ smallBlind: 10, bigBlind: 20 });
+    // this.createRoom({ smallBlind: 50, bigBlind: 100 });
     this.createSNG({ smallBlind: 1, bigBlind: 2, buyIn: 500 });
-    this.createRoom({ smallBlind: 2, bigBlind: 5 });
-    this.createRoom({ smallBlind: 4, bigBlind: 8 });
+    this.createSNG({ smallBlind: 1, bigBlind: 2, buyIn: 500 });
+    this.createSNG({ smallBlind: 1, bigBlind: 2, buyIn: 500 });
     this.createSNG({ smallBlind: 5, bigBlind: 10, buyIn: 1000 });
-    this.createRoom({ smallBlind: 10, bigBlind: 20 });
     this.createSNG({ smallBlind: 20, bigBlind: 40, buyIn: 2000 });
-    this.createRoom({ smallBlind: 50, bigBlind: 100 });
   }
 
   buildConnection = () => {
@@ -191,6 +193,11 @@ export default class PokerService {
       const pos = this.tables[id].getPosition(address);
       this.tables[id].players[pos].socket = socket;
       this.tables[id].players[pos].disconnect = false;
+      this.tableInfo(socket, data);
+    } else if (status === "LEAVE") {
+      const pos = this.tables[id].getPosition(address);
+      this.tables[id].players[pos].socket = socket;
+      this.tables[id].players[pos].leave = false;
       this.tableInfo(socket, data);
     } else {
       this.sendMessage(
