@@ -141,6 +141,7 @@ export class Ring {
     const user = await authController.getUser(this.players[i].address);
     if (user) {
       user.balance.ebone += this.players[i].stack;
+      this.players[i].socket?.emit("balance", this.players[i].stack);
       authController.updateUser(user);
     }
 
@@ -629,7 +630,7 @@ export class Ring {
         this.check();
       else if (this.players[this.currentPlayerId].auto === "call") this.call();
       else if (this.players[this.currentPlayerId].auto === "raise")
-        this.raise(this.minRaise);
+        this.raise(this.currentBet * 2);
       else if (this.countdown < 0) this.fold();
       else setTimeout(this.tick, 1000);
     }

@@ -26,12 +26,12 @@ const bubblesPositionClasses = [
 ];
 
 const betPositionClasses = [
-  " left-[58%] bottom-[15%]",
+  " left-[58%] top-[79%]",
   " left-[12%] top-[53%]",
   " left-[14%] top-[22%]",
-  " right-[53%] top-[12%]",
-  " right-[14%] top-[22%]",
-  " right-[12%] top-[53%]",
+  " left-[38%] top-[12%]",
+  " left-[76%] top-[22%]",
+  " left-[78%] top-[53%]",
 ];
 
 const cardPositionClasses = [
@@ -62,13 +62,14 @@ const buttonPositionClasses = [
   " left-[88.7%] top-[64%]",
 ];
 
-const betSide = ["right", "right", "right", "left", "left", "left"];
+const betSide = ["right", "right", "right", "right", "right", "right"];
 
 const Players = () => {
   const { id } = useParams();
   const { pokersocket } = useContext(SocketContext);
   const { address } = useSelector((state: RootState) => state.auth.user);
   const { tableInfo } = useSelector((state: RootState) => state.poker);
+  const { prevState } = useSelector((state: RootState) => state.poker);
   const { prevDealerId } = useSelector((state: RootState) => state.poker);
   const dispatch = useDispatch();
 
@@ -122,36 +123,86 @@ const Players = () => {
               {/* Bet */}
               {player.betAmount > 0 && (
                 <>
-                  <div
-                    className={
-                      "flex z-40 absolute w-[3%]" + betPositionClasses[index]
-                    }
-                  >
-                    <img
-                      className="w-[100%] absolute left-[7%] top-[7%]"
-                      src="/assets/chips/blue_chip.png"
-                      alt=""
-                    />
-                    <img
-                      className="w-[100%]"
-                      src="/assets/chips/pink_chip.png"
-                      alt=""
-                    />
-                  </div>
-                  <div
-                    className={
-                      `absolute flex z-30 h-[5.5%] gap-1 items-center bg-[#5A6B8C]/[.5] ${
-                        betSide[index] === "left"
-                          ? "pr-[3.6%] pl-[1.5%]"
-                          : "pl-[4%] pr-[1.5%]"
-                      } py-1 rounded-full` + betPositionClasses[index]
-                    }
-                  >
-                    <p className="font-[700] text-[#D4E9FF]">
-                      {player.betAmount}
-                    </p>
-                    <img className="pic" src={images.pic} alt="" />
-                  </div>
+                  {prevState.players &&
+                    prevState.players[index].betAmount < player.betAmount && (
+                      <>
+                        <div
+                          className={
+                            "flex z-40 absolute w-[3%]" +
+                            betPositionClasses[index]
+                          }
+                          style={{
+                            animationName: `coin${index}`,
+                            animationDuration: "0.5s",
+                          }}
+                        >
+                          <img
+                            className="w-[100%] absolute left-[7%] top-[7%]"
+                            src="/assets/chips/blue_chip.png"
+                            alt=""
+                          />
+                          <img
+                            className="w-[100%]"
+                            src="/assets/chips/pink_chip.png"
+                            alt=""
+                          />
+                        </div>
+                        <div
+                          className={
+                            `absolute flex z-30 h-[5.5%] gap-1 items-center bg-[#5A6B8C]/[.5] ${
+                              betSide[index] === "left"
+                                ? "pr-[3.6%] pl-[1.5%]"
+                                : "pl-[4%] pr-[1.5%]"
+                            } py-1 rounded-full` + betPositionClasses[index]
+                          }
+                          style={{
+                            animationName: `cointext`,
+                            animationDuration: "0.5s",
+                          }}
+                        >
+                          <p className="font-[700] text-[#D4E9FF]">
+                            {player.betAmount}
+                          </p>
+                          <img className="pic" src={images.pic} alt="" />
+                        </div>
+                      </>
+                    )}
+                  {prevState.players &&
+                    prevState.players[index].betAmount != 0 && (
+                      <>
+                        <div
+                          className={
+                            "flex z-40 absolute w-[3%]" +
+                            betPositionClasses[index]
+                          }
+                        >
+                          <img
+                            className="w-[100%] absolute left-[7%] top-[7%]"
+                            src="/assets/chips/blue_chip.png"
+                            alt=""
+                          />
+                          <img
+                            className="w-[100%]"
+                            src="/assets/chips/pink_chip.png"
+                            alt=""
+                          />
+                        </div>
+                        <div
+                          className={
+                            `absolute flex z-30 h-[5.5%] gap-1 items-center bg-[#5A6B8C]/[.5] ${
+                              betSide[index] === "left"
+                                ? "pr-[3.6%] pl-[1.5%]"
+                                : "pl-[4%] pr-[1.5%]"
+                            } py-1 rounded-full` + betPositionClasses[index]
+                          }
+                        >
+                          <p className="font-[700] text-[#D4E9FF]">
+                            {player.betAmount}
+                          </p>
+                          <img className="pic" src={images.pic} alt="" />
+                        </div>
+                      </>
+                    )}
                 </>
               )}
               {tableInfo.status === "OVER" && player.prize > 0 && (
@@ -160,6 +211,10 @@ const Players = () => {
                     className={
                       "flex z-40 absolute w-[3%]" + betPositionClasses[index]
                     }
+                    style={{
+                      animationName: `coinresult`,
+                      animationDuration: "0.5s",
+                    }}
                   >
                     <img
                       className={"w-[100%] absolute left-[7%] top-[7%]"}
@@ -180,6 +235,10 @@ const Players = () => {
                           : "pl-[4%] pr-[1.5%]"
                       } py-1 rounded-full` + betPositionClasses[index]
                     }
+                    style={{
+                      animationName: `cointext`,
+                      animationDuration: "0.5s",
+                    }}
                   >
                     <p className="font-[700] text-[#D4E9FF]">{player.prize}</p>
                     <img className="pic" src={images.pic} alt="" />
@@ -233,7 +292,7 @@ const Players = () => {
               >
                 <img
                   className={
-                    "avatar rounded-xl lg:rounded-2xl p-[3px] lg:p-[4px] xl:p-[5px] 2xl:p-[6px] " +
+                    "z-50 avatar rounded-xl lg:rounded-2xl p-[3px] lg:p-[4px] xl:p-[5px] 2xl:p-[6px] " +
                     (!player.address && !tableInfo.isMember
                       ? "cursor-pointer"
                       : "")
@@ -263,7 +322,7 @@ const Players = () => {
                 )}
 
                 {(player.status == "FOLD" || player.status == "CHECK") && (
-                  <div className="absolute -bottom-[1.5%] fold w-full px-[1%] py-[10%] rounded-b-xl lg:rounded-b-2xl rounded-t-xl">
+                  <div className="z-50 absolute -bottom-[1.5%] fold w-full px-[1%] py-[10%] rounded-b-xl lg:rounded-b-2xl rounded-t-xl">
                     <p className="text-[#F5FAFF] text-tiny text-center">
                       {player.status}
                     </p>

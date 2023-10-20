@@ -178,6 +178,56 @@
     top: 64%;
   }
 }
+@keyframes coin0 {
+  0% {
+    left: 47%;
+    top: 88.4%;
+  }
+}
+@keyframes coin1 {
+  0% {
+    left: 0.6%;
+    top: 51%;
+  }
+}
+@keyframes coin2 {
+  0% {
+    left: 10.4%;
+    top: 7.5%;
+  }
+}
+@keyframes coin3 {
+  0% {
+    left: 47%;
+    top: 0.5%;
+  }
+}
+@keyframes coin4 {
+  0% {
+    left: 83.6%;
+    top: 7.5%;
+  }
+}
+@keyframes coin5 {
+  0% {
+    left: 93.4%;
+    top: 51%;
+  }
+}
+@keyframes coinresult {
+  0% {
+    left: 50%;
+    top: 30%;
+  }
+}
+@keyframes cointext {
+  0% {
+    opacity: 0;
+  }
+  99% {
+    opacity: 0;
+  }
+}
 @keyframes card0 {
   0% {
     left: 47.5%;

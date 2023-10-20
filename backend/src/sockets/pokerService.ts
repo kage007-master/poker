@@ -4,7 +4,6 @@ import { SNG } from "../models/SNG";
 import { User } from "../types/User";
 import authController from "../controllers/auth.controller";
 import { Room } from "../models/Room";
-import { nullPlayer } from "../utils/poker";
 
 const Hand = require("pokersolver").Hand;
 
@@ -40,6 +39,10 @@ export default class PokerService {
     this.createSNG({ smallBlind: 1, bigBlind: 2, buyIn: 500 });
     this.createSNG({ smallBlind: 5, bigBlind: 10, buyIn: 1000 });
     this.createSNG({ smallBlind: 20, bigBlind: 40, buyIn: 2000 });
+    setInterval(
+      () => this.broadcastMessage("lobbyInfo", this.lobbyInfo()),
+      1000
+    );
   }
 
   buildConnection = () => {
@@ -244,6 +247,7 @@ export default class PokerService {
         return;
       }
       user.balance.ebone -= chip;
+      socket?.emit("balance", -chip);
       authController.updateUser(user);
       if (this.tables[tableId].status === "WAIT")
         this.tables[tableId].players[pos].stack += chip;
@@ -301,6 +305,7 @@ export default class PokerService {
         return;
       }
       user.balance.ebone -= buyIn;
+      socket?.emit("balance", -buyIn);
       authController.updateUser(user);
 
       await table.takeSeat(

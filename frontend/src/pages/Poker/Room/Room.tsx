@@ -99,11 +99,11 @@ const Component = () => {
               </p>
               <div className="flex items-center py-2 lg:py-3 cursor-pointer">
                 <SvgUser className="w-4 h-4 lg:w-6 lg:h-6" />
-                <p className="gradient-text">Deposit</p>
+                <p className="gradient-text text-tiny">Deposit</p>
               </div>
               <div className="flex items-center py-2 lg:py-3 cursor-pointer">
                 <SvgUser className="w-4 h-4 lg:w-6 lg:h-6" />
-                <p className="gradient-text">Withdraw</p>
+                <p className="gradient-text text-tiny">Withdraw</p>
               </div>
               <div
                 className="flex items-center py-2 lg:py-3 cursor-pointer"
@@ -112,7 +112,7 @@ const Component = () => {
                 }}
               >
                 <SvgUser className="w-4 h-4 lg:w-6 lg:h-6" />
-                <p className="gradient-text">My Profile</p>
+                <p className="gradient-text text-tiny">My Profile</p>
               </div>
               <div
                 className="flex items-center py-2 lg:py-3 cursor-pointer border-t-[1px]"
@@ -123,7 +123,7 @@ const Component = () => {
                 }}
               >
                 <SvgUser className="w-4 h-4 lg:w-6 lg:h-6" />
-                <p className="gradient-text">Disconnect</p>
+                <p className="gradient-text text-tiny">Disconnect</p>
               </div>
             </div>
           )}
@@ -177,11 +177,11 @@ const Component = () => {
                       {table.type}
                     </div>
                     <div className="flex items-center gradient-text">
-                      <SvgTable className="w-6 h-6 lg:w-8 lg:h-8"></SvgTable>
+                      <SvgTable className="w-6 h-6 lg:w-8 lg:h-8" />
                       {table.tableCnts}
                     </div>
                     <div className="flex items-center gradient-text">
-                      <SvgUser className="w-6 h-6 lg:w-8 lg:h-8"></SvgUser>
+                      <SvgUser className="w-6 h-6 lg:w-8 lg:h-8" />
                       {table.playerCnt}
                     </div>
                     {table.type === "Turbo SNG" &&

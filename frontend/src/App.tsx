@@ -7,12 +7,7 @@ import Modals from "modals";
 import PokerRooms from "pages/Poker/Room";
 import PokerGame from "pages/Poker/Game";
 
-import {
-  SocketContext,
-  mainsocket,
-  crashsocket,
-  pokersocket,
-} from "context/socket";
+import { SocketContext, pokersocket } from "context/socket";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import LogIn from "components/LogIn";
 import MessageProvider from "providers/MessageProvider";
@@ -22,9 +17,7 @@ function App() {
     <MultiversXProvider>
       <Provider store={store}>
         <ToastrProvider>
-          <SocketContext.Provider
-            value={{ mainsocket, crashsocket, pokersocket }}
-          >
+          <SocketContext.Provider value={{ pokersocket }}>
             <BrowserRouter>
               <MessageProvider />
               <div

@@ -39,14 +39,10 @@ class App {
     this.pokerSocket = this.io.of("/poker");
 
     connectDatabase().then(() => {
-      this.run();
+      this.server.listen(this.port);
+      console.log(`Server listening on port ${this.port}`);
+      this.pokerService = new PokerService(this.pokerSocket);
     });
-  }
-
-  public run() {
-    this.server.listen(this.port);
-    console.log(`Server listening on port ${this.port}`);
-    this.pokerService = new PokerService(this.pokerSocket);
   }
 }
 

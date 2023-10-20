@@ -1,6 +1,6 @@
 const GradientSVG = () => {
   return (
-    <svg style={{ height: 0, position: "absolute" }}>
+    <svg style={{ height: 0, width: 0, position: "absolute" }}>
       <linearGradient id="gradient0">
         <stop offset="0%" stopColor="#FF4493" />
         <stop offset="50%" stopColor="#9746FF" />

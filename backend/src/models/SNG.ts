@@ -110,7 +110,7 @@ export class SNG {
     this.lastNewPlayerId = position;
     this.broadcast();
     if (this.numberOfPlayers() === 2) {
-      this.remainTime = 60;
+      this.remainTime = 30;
       setTimeout(this.down, 1000);
     }
     if (this.numberOfPlayers() === 4) this.remainTime = 10;
@@ -599,7 +599,7 @@ export class SNG {
         this.check();
       else if (this.players[this.currentPlayerId].auto === "call") this.call();
       else if (this.players[this.currentPlayerId].auto === "raise")
-        this.raise(this.minRaise);
+        this.raise(this.currentBet * 2);
       if (this.countdown < 0) this.fold();
       else setTimeout(this.tick, 1000);
     }

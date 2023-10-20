@@ -13,9 +13,19 @@ import "react-circular-progressbar/dist/styles.css";
 import { buildStyles, CircularProgressbar } from "react-circular-progressbar";
 import GradientSVG from "./GradientSVG";
 import Players from "./Players";
-import { numbersToCards } from "utils/poker";
+import { numbersToCards, timeToStr } from "utils/poker";
 import { ToastrContext } from "providers/ToastrProvider";
 import { setPrize, setPrizeData } from "store/modal.slice";
+import { setBalance } from "store/auth.slice";
+
+const positionClasses = [
+  " left-[47%] top-[88.4%]",
+  " left-[0.6%] top-[51%]",
+  " left-[10.4%] top-[7.5%]",
+  " left-[47%] top-[0.5%]",
+  " right-[10.4%] top-[7.5%]",
+  " right-[0.6%] top-[51%]",
+];
 
 const Component = () => {
   const dispatch = useDispatch();
@@ -32,6 +42,7 @@ const Component = () => {
       dispatch(setTableInfo({ data, address }));
     });
     pokersocket.on("finished", (data: any) => {
+      dispatch(setBalance({ chain: "ebone", amount: data.prize }));
       dispatch(setPrizeData(data));
       dispatch(setPrize(true));
     });
@@ -64,9 +75,7 @@ const Component = () => {
         <div className="absolute z-30 gradient-text top-[4%] right-[8%]">
           {`Next Level: ${tableInfo.smallBlind * 2}/${
             tableInfo.bigBlind * 2
-          }(${Math.floor((300 - (tableInfo.playingTime % 300)) / 60)}:${
-            (300 - (tableInfo.playingTime % 300)) % 60
-          })`}
+          }(${timeToStr(tableInfo.playingTime)})`}
         </div>
       )}
       <TopLeftControllers />
@@ -74,32 +83,31 @@ const Component = () => {
       <Leave />
       <AddChip />
       <BottomRightControllers />
-      {tableInfo.status === "IDLE" || tableInfo.status === "STRADDLE" ? (
-        <div className="absolute z-30 bottom-[6%] left-[30%] w-[5%]">
-          <div className="flex justify-center items-center relative">
+
+      <div className="w-[67%] h-[85%] absolute">
+        {tableInfo.status === "IDLE" || tableInfo.status === "STRADDLE" ? (
+          <div
+            className={
+              "absolute z-40 w-[6%]" +
+              positionClasses[tableInfo.currentPlayerId]
+            }
+          >
             <GradientSVG />
             <CircularProgressbar
               strokeWidth={10}
-              className={"z-20 !w-[88%]"}
               value={(tableInfo.countdown * 100) / 12}
-              text={`${tableInfo.countdown}`}
               styles={buildStyles({
-                textColor: "#D4E9FF",
-                textSize: "36px",
+                backgroundColor: "transparent",
                 pathColor: `url(#gradient${
                   tableInfo.countdown > 6 ? "1" : "0"
                 })`,
                 trailColor: "transparent",
               })}
             />
-            <div className="w-full h-[113%] absolute circle" />
           </div>
-        </div>
-      ) : (
-        <></>
-      )}
-
-      <div className="w-[67%] h-[85%] absolute">
+        ) : (
+          <></>
+        )}
         <div className="relative flex justify-center items-center w-full h-full">
           <Players />
           {/* Main cards playground */}
